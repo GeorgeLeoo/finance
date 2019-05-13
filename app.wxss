@@ -1,0 +1,11 @@
+/**app.wxss**/
+.container {
+  height: calc(100vh);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+} 
+
+.logo{
+  border-radius: 6px;
+}

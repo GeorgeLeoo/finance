@@ -1,0 +1,64 @@
+/* pages/mine/mine.wxss */
+
+.container {
+  background-color: rgb(248, 248, 248);
+}
+
+.head {
+  background-color: #EB4D45;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  height: 164px;
+  box-shadow: 0 3px 10px #ccc;
+  /* margin-bottom: 10px; */
+}
+
+.nickname {
+  font-size: 16px;
+  color: #fff;
+  padding: 10px;
+}
+
+.tag {
+  font-size: 12px;
+  color: #fff;
+  /* padding-bottom: 20px; */
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+}
+
+.list {
+  margin-top: 10px;
+  height: calc(100vh - 170px);
+}
+
+.bottom10 {
+  margin-bottom: 10px;
+}
+
+.item {
+  background-color: #fff;
+  padding: 0 20px;
+  border: 1px solid rgb(248, 248, 248);
+  line-height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.mine-item-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.mine-item-text {
+  font-size: 14px;
+  padding-left: 10px;
+  color: #333333;
+}

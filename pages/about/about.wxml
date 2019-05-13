@@ -1,0 +1,31 @@
+<view class='container'>
+  <scroll-view>
+    <view class='head'>
+      <image class='logo avatar' src='./../../images/logo.png'></image>
+      <text class='appName'>家庭记账系统</text>
+      <text class='version'>版本号：V1.0.1</text>
+    </view>
+    <view class='section'>
+      <view class='item'>
+        <view>1、智能统计</view>
+        <view>清晰饼图及线图展现各类支出收入，账目明细更直观。</view>
+      </view>
+
+      <view class='item'>
+        <view>2、余额结算</view>
+        <view>智能监控消费支出，保证收支平衡。</view>
+      </view>
+
+      <view class='item'>
+        <view>3、按月查询</view>
+        <view>按月选择账单时间，任何月份收支状况轻松查询。</view>
+      </view>
+
+
+      <view class='item'>
+        <view>4、搜索</view>
+        <view>输入备注进行查找过去的账单消费。</view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

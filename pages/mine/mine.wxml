@@ -1,0 +1,19 @@
+<view class='container'>
+  <view class='head'>
+    <navigator hover-class="none" url='../profile/profile'>
+      <image class='avatar' src='{{avatar}}'></image>
+    </navigator>
+    <text class='nickname'>{{nickname}}</text>
+    <text class='tag'>Hi!, 你终于来了～</text>
+  </view>
+  <scroll-view class='list' scroll-y>
+    <navigator wx:for="{{mines}}" wx:key="{{item.text}}" class='item {{item.class}}' url='{{item.url}}'>
+      <image class='mine-item-icon' src='{{item.icon}}'></image>
+      <text class='mine-item-text'>{{item.text}}</text>
+    </navigator>
+    <navigator class='item bottom10' bindtap='handleLogout'>
+      <image class='mine-item-icon' src='./../../images/mine/setting_logout.svg'></image>
+      <text class='mine-item-text'>退出账号</text>
+    </navigator>
+  </scroll-view>
+</view>

@@ -1,0 +1,40 @@
+<view class='container'>
+  <view class='menu'>
+    <view class='top-menu'>
+      <text>{{current == 0 ? "支出" : "收入"}}</text>
+    </view>
+  </view>
+  <scroll-view class='scroll' scroll-y>
+
+    <view class='item-wrapper'>
+      <view class='item' wx:for="{{catelogs}}" wx:key="{{index}}">
+        <image class='{{datall.iconSelected === index ? "red": "blue"}}' bindtap='iconClick' data-id='{{index}}' src='{{item.icon }}'></image>
+        <text>{{item.text}}</text>
+      </view>
+    </view>
+    <view class='bot'>
+      <view class='botinput line'>
+        <label class='date-label'>日期：</label>
+        <picker mode="date" fields="day" value="{{datall.date}}" start="1996-09-01" end="3050-09-01" bindchange="bindDateChange">
+          <view>
+            <text class="picker-text">
+            {{datall.date}}
+          </text>
+          </view>
+        </picker>
+      </view>
+      <view class='botinput line'>
+        <label>备注：</label>
+        <input placeholder='点我写备注' type='text' value='{{datall.notes}}' bindinput='watchNotes'></input>
+      </view>
+      <view class='botinput line'>
+        <label>支出费用：</label>
+        <input placeholder='点我写支出费用' type='text' value='{{datall.money}}' bindinput='watchMoney'></input>
+      </view>
+      <view>
+        <button class='save-btn' bindtap='handleSave'>保存</button>
+      </view>
+    </view>
+  </scroll-view>
+  
+</view>

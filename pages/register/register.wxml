@@ -1,0 +1,38 @@
+<view class='container'>
+  <view class='head'>
+    <view>
+      <image class='logo' src='./../../images/logo.png'></image>
+    </view>
+    <view>
+      <text class='app-name'>家庭记账系统</text>
+    </view>
+  </view>
+  <form class='register-form' method='post' action=''>
+   <view class='register-form-input-group'>
+      <view class='register-input-group'>
+        <input class='register-input' type='number' placeholder='请输入手机号' value='{{users.tel}}' bindinput='watchTel'></input>
+      </view>
+      <view class='register-input-group register-input-vertify-wraper'>
+        <input class='register-input register-input-vertify' type='number' placeholder='请输入验证码' value='{{verifyCode}}' bindinput='watchVerifyCode'></input>
+        <button size='mini' class='register-btn register-btn-vertify' disabled='{{flg_verifybtn}}'>获取验证码</button>
+      </view>
+      <view class='register-input-group'>
+        <input class='register-input' placeholder='请输入密码' password  value='{{users.pwd}}' bindinput='watchPwd'></input>
+      </view>
+    </view>
+    <view class='register-btn-wrapper'>
+      <button class='register-btn' disabled="{{flg_regbtn}}" bindtap='handleRegister'>注册</button>
+    </view>
+    <!-- <view class='register-bot'>
+      <navigator hover-class="none" url='./../login/login'><text>已有账号，去登录</text></navigator>
+    </view> -->
+  </form>
+  <view class='foot'>
+    <view>
+      <text class='other'>其它注册方式</text>
+    </view>
+    <view class='other-btns'>
+      <image src='./../../images/wechat.svg'></image>
+    </view>
+  </view>
+</view>

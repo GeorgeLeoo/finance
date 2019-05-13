@@ -1,0 +1,44 @@
+<view class="container">
+  <!-- 搜索 -->
+  <view class='search'>
+    <view class='search-inner'>
+      <image class='search-icon' src='./../../images/search.svg'></image>
+      <input class='search-input' placeholder='请输入备注' value='{{searchInput}}' confirm-type='search' bindconfirm='handleSearch' bindinput='watchSearchInput'></input>
+      <block wx:if='{{searchInput}}'>
+        <image class='search-icon' src='./../../images/close.svg' bindtap='handleDel'></image>
+      </block>
+    </view>
+  </view>
+  <!-- 列表 -->
+  <view class='list'>
+    <block wx:for='{{lists}}' wx:key='{{index}}'>
+      <view class='item' data-id='{{item_id}}' bindlongpress='handleDelete' bindtap='handleModify'>
+        <!-- item top -->
+        <view class='item-top' data-id="{{item._id}}">
+          <text data-id="{{item._id}}">{{item.date}} {{item.getWeek}} {{item.type === 0 ? '支出' : '收入'}}</text>
+        </view>
+        <!-- item bottom -->
+        <view class='item-bottom' data-id="{{item._id}}">
+          <!-- item bottom left -->
+          <view class='item-bottom-left' data-id="{{item._id}}">
+            <view data-id="{{item._id}}">
+              <image data-id="{{item._id}}" class="bg_{{item.type === 0 ? 'green': 'red'}}" src='./../../images/main/{{item.type === 0 ? "zc_" + (item.iconSelected + 1) + ".svg" : "sr_" + (item.iconSelected + 1) + ".svg"}}'></image>
+            </view>
+            <view data-id="{{item._id}}">
+              <view data-id="{{item._id}}">
+                <text data-id="{{item._id}}">{{item.type === 0 ? c_out[item.iconSelected].text : c_in[item.iconSelected].text}}</text>
+              </view>
+              <view data-id="{{item._id}}">
+                <text data-id="{{item._id}}">{{item.notes}}</text>
+              </view>
+            </view>
+          </view>
+          <!-- item bottom right -->
+          <view class='item-bottom-right' data-id="{{item._id}}">
+            <text data-id="{{item._id}}" class="{{item.type === 0 ? 'green': 'red'}}">{{item.type === 0 ? '-' + item.money : '+' + item.money}}¥</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

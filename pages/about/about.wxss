@@ -1,0 +1,39 @@
+.container {
+  color: rgb(118, 118, 118);
+  font-size: 14px;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  color: rgb(112, 112, 112);
+}
+
+.appName {
+  padding: 10px 0;
+  color: rgb(145, 145, 145);
+  font-size: 18px;
+}
+
+.version {
+  font-size: 12px;
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+}
+
+.section {
+  padding: 20px;
+}
+
+.item {
+  padding-bottom: 20px;
+}
+
+.item view {
+  line-height: 26px;
+}

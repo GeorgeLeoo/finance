@@ -1,0 +1,19 @@
+<view class='container'>
+  <view class='name'>
+    <text>类别名称</text>
+    <input placeholder='8个字以内' bindinput='watchName' type='text'></input>
+  </view>
+  <view class='divide'></view>
+  <view class='icons'>
+    <view class='icon-title'>
+      <text>类别图标</text>
+    </view>
+    <view class='icon-wrapper' wx:for='{{icons}}' wx:key='{{index}}'>
+      <!-- <image class='{{iconSelected === index ? "red":"blue"}}' bindtap='iconClick' class='icon-img' data-id='{{index}}' src='{{item.icon}}'></image> -->
+      <image class='icon-img {{iconSelected === index ? "red": "blue"}}' bindtap='iconClick' data-id='{{index}}' src='{{item.icon }}'></image>
+    </view>
+  </view>
+  <view class='btn-group'>
+    <button class='save-btn' bindtap='saveClick'>保存</button>
+  </view>
+</view>

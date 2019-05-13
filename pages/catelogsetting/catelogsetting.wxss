@@ -1,0 +1,103 @@
+/* pages/catelogsetting/catelogsetting.wxss */
+.container{
+  height: calc(100vh);
+}
+.item {
+  height: 44px;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgb(248, 248, 248);
+}
+
+.item image {
+  width: 30px;
+  height: 30px;
+}
+
+.item text {
+  padding-left: 10px;
+}
+
+.swiper {
+  height: calc(100vh - 100px);
+  padding: 50px 0;
+}
+
+.swiper-item {
+  overflow: auto;
+}
+
+.menu {
+  background: #EB4D45;
+  padding: 10px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  box-shadow: 0 0 10px #333;
+  z-index: 999;
+}
+
+.top-menu {
+  margin: 0 auto;
+  text-align: center;
+  color: #333;
+}
+
+.menu text{
+  padding: 0 26px;
+  display: inline-block;
+  color: #fff;
+}
+
+.top-menu-out{
+  border: 1px solid #fff;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.top-menu-in{
+  border: 1px solid #fff;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.bgw{
+  background: #fff!important;
+  color: #EB4D45!important;
+}
+
+.add-catalog{
+  text-align: center;
+  line-height: 40px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: calc(100vw);
+  background: rgb(240,240,240);
+  font-size: 14px;
+  color: rgb(130, 130, 130);
+}
+.opr{
+  position: absolute;
+  right: 10px;
+  top: 14px;
+  font-size: 14px;
+  display: inline-block;
+  height: 30px;
+  color: #fff;
+}
+.red {
+  width: 4px;
+  height: 4px;
+  padding: 6px;
+  border-radius: 100%;
+  background-color: #eb4d45;
+}
+
+.item-main{
+  display: flex;
+  align-items: center;
+}

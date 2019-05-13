@@ -1,0 +1,35 @@
+<view class='container'>
+  <view class='head'>
+    <view>
+      <image class='logo' src='./../../images/logo.png'></image>
+    </view>
+    <view>
+      <text class='app-name'>家庭记账系统</text>
+    </view>
+  </view>
+  <form class='login-form' method='post' action=''>
+    <view class='login-form-input-group'>
+      <view>
+        <input class='login-input' type='number' placeholder='请输入手机号' value='{{users.tel}}' bindinput='watchTel'></input>
+      </view>
+      <view>
+        <input class='login-input' placeholder='请输入密码' password value='{{users.pwd}}' bindinput='watchPwd'></input>
+      </view>
+    </view>
+    <view class='login-btn-wrapper'>
+      <button class='login-btn' disabled='{{flg_loginbtn}}' bindtap='handleLogin'>登录</button>
+    </view>
+    <view class='login-bot'>
+      <navigator hover-class="none" url='./../forget/forget'><text>忘记密码</text></navigator>
+      <navigator hover-class="none" url='./../register/register'><text>新用户注册</text></navigator>
+    </view>
+  </form>
+  <view class='foot'>
+    <view>
+      <text class='other'>其它登录方式</text>
+    </view>
+    <view class='other-btns'>
+      <image src='./../../images/wechat.svg' bindtap='handleWXLogin'></image>
+    </view>
+  </view>
+</view>

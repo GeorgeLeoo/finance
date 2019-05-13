@@ -1,0 +1,23 @@
+<view class="container">
+  <view class='item itemtop'>
+    <view class='avatar' url=''>
+      <text>我的头像</text>
+      <!-- http://{{host}}:8080/{{avatar}} -->
+      <image bindtap='handlerAvatar' class='item-avater' src='{{avatarurl}}'></image>
+    </view>
+    <view class='nickname'>
+      <text>我的昵称</text>
+      <view class='right'>
+        <block wx:if="{{!isEdit}}">
+          <text>{{nickname}}</text>
+          <image bindtap='handleEdit' class='edit-icon' src='./../../images/edit.svg'></image>
+        </block>
+        <block wx:else>
+          <input placeholder='请输入昵称' bindinput='watchNickname' value='{{nickname}}'></input>
+          <image class='edit-icon' src='./../../images/check.svg' bindtap='handleSaveNickname'></image>
+        </block>
+      </view>
+    </view>
+  </view>
+  <!-- <navigator class='item mypage' url='./../mypage/mypage'>我的主页</navigator> -->
+</view>

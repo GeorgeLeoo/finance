@@ -1,0 +1,56 @@
+/* pages/forget/forget.wxss */
+
+.container {
+  background-color: rgb(248, 248, 248);
+}
+
+.forget-form {
+  margin-top: 30px;
+}
+
+.forget-input {
+  font-size: 16px;
+  padding: 6px 20px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.forget-form-input-group {
+  background: #fff;
+}
+
+.forget-input-group {
+  padding: 10px 0;
+  border-bottom: 1px solid rgb(248, 248, 248);
+}
+
+.forget-input-vertify {
+  display: inline-block;
+  width: 55%;
+}
+
+.forget-btn-vertify {
+  line-height: 40px;
+}
+
+.forget-input-vertify-wraper {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.forget-btn-wrapper {
+  padding: 20px;
+}
+
+.forget-btn {
+  background-color: rgba(235,77,69, 1);
+  border: none;
+  color: #fff;
+  font-size: 18px;
+}
+
+.forget-btn[disabled]{
+  background-color: rgba(235,77,69, 0.3)!important;
+  color: #fff!important;
+}

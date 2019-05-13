@@ -1,0 +1,51 @@
+<view class='container'>
+<!-- 头部 -->
+  <view class='head'>
+    <picker mode="date" fields="month" value="{{date}}" start="1996-09-01" end="3050-09-01" bindchange="bindDateChange">
+      <view class='head-item'>
+        <text>{{date.year}}年</text>
+        <text class='arrow'>{{date.month}}月</text>
+      </view>
+    </picker>
+    <view class='head-item'>
+      <text>收入</text>
+      <text>{{money.getMoney}}</text>
+    </view>
+    <view class='head-item'>
+      <text>支出</text>
+      <text>{{money.useMoney}}</text>
+    </view>
+    <view class='head-item'>
+      <text>余额(当月)</text>
+      <text>{{money.restMoney}}</text>
+    </view>
+  </view>
+  <!-- 主体 -->
+  <scroll-view scroll-y class='scroll-view'>
+    <view class='main'>
+      <block wx:if="{{list.length === 0}}">
+        <view>
+          <text>本月没有记录哦</text>
+        </view>
+      </block>
+      <view wx:for="{{list}}" wx:key="{{item}}">
+        <view class='main-head'>
+          <text>{{item.date}} {{item.week}}</text>
+          <text>支出：{{item.useMoney}}¥  收入：{{item.getMoney}}¥</text>
+        </view>
+        <view class='main-body'>
+          <view class='main-body-item' wx:for="{{item.items}}" wx:key="{{item}}" data-id="{{item._id}}" bindlongpress='handleDelete' bindtap='handleModify'>
+            <view class='main-bi-l' data-id="{{item._id}}">
+              <image data-id="{{item._id}}" class="icon bg_{{item.type === 0 ? 'green': 'red'}}" src='./../../images/main/{{item.type === 0 ? "zc_" + (item.iconSelected + 1) + ".svg" : "sr_" + (item.iconSelected + 1) + ".svg"}}'></image>
+              <view class='texts' data-id="{{item._id}}">
+                <text data-id="{{item._id}}">{{item.text}}</text>
+                <text data-id="{{item._id}}">{{item.notes}}</text>
+              </view>
+            </view>
+            <text data-id="{{item._id}}" class='{{item.type === 0 ? "green": "red"}}'>{{item.type === 0 ? '-' : '+'}}{{item.money}}¥</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,61 @@
+/* pages/addcatalog/addcatalog.wxss */
+
+.save-btn {
+  background: #EB4D45;
+  color: #fff;
+}
+
+.btn-group {
+  padding: 20px;
+}
+
+.name {
+  display: flex;
+  background: #fff;
+  padding: 0 20px;
+}
+
+.name text {
+  height: 40px;
+  line-height: 40px;
+  padding-right: 10px;
+}
+
+.name input {
+  height: 40px;
+}
+
+.divide {
+  height: 20px;
+  /* background-color: rgb(251, 251, 242); */
+}
+
+.icon-title {
+  text-align: center;
+  font-size: 12px;
+  color: rgb(190, 190, 190);
+  padding: 14px 0;
+}
+
+.icon-img{
+  width: 20px;
+  height: 20px;
+  padding: 6px;
+  border-radius: 100%;
+}
+
+.icon-wrapper{
+  display: inline-block;
+  padding: 10px;
+}
+
+.icons{
+  padding: 10px;
+}
+.blue {
+  background-color: #ccc;
+}
+
+.red {
+  background-color: #eb4d45;
+}

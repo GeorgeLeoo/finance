@@ -1,0 +1,45 @@
+<view class='container'>
+  <view class='menu'>
+    <view class='top-menu'>
+      <text bindtap='outClick' class='top-menu-out {{current == 0 ? "bgw" : ""}}'>支出</text>
+      <icon class='line'></icon>
+      <text bindtap='inClick' class='top-menu-in {{current == 1 ? "bgw" : ""}}'>收入</text>
+    </view>
+    <view class='opr'>
+      <text wx:if="{{!showDel}}" bindtap='handleDelBtn'>删除</text>
+      <text bindtap='handleDelBtn' wx:else>取消</text>
+    </view>
+  </view>
+  <swiper class='swiper' current='{{current}}' bindchange='changeCurrent'>
+    <swiper-item class='swiper-item'>
+      <view class='item' wx:for="{{catelogs_out}}" wx:key="{{index}}">
+        <view class='item-main'>
+          <image class='red' data-id='{{index}}' src='{{item.icon}}'></image>
+          <text>{{item.text}}</text>
+        </view>
+        <view>
+          <block wx:if='{{item.id !== undefined && showDel}}'>
+            <image data-id='{{item.id}}' class='search-icon' src='./../../images/close.svg' bindtap='handleDel'></image>
+          </block>
+        </view>
+      </view>
+
+    </swiper-item>
+    <swiper-item class='swiper-item'>
+      <view class='item' wx:for="{{catelogs_in}}" wx:key="{{index}}">
+        <view class='item-main'>
+         <image class='red' data-id='{{index}}' src='{{item.icon}}'></image>
+          <text>{{item.text}}</text>
+        </view>
+        <view>
+          <block wx:if='{{item.id !== undefined && showDel}}'>
+            <image data-id='{{item.id}}' class='search-icon' src='./../../images/close.svg' bindtap='handleDel'></image>
+          </block>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+  <view class='add-catalog' bindtap='addCatalog'>
+    添加类别
+  </view>
+</view>

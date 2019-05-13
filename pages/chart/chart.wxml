@@ -1,0 +1,96 @@
+<view class="container">
+  <!-- 日期 -->
+  <view class='head'>
+    <picker mode="date" fields="month" value="{{date}}" start="1996-09-01" end="3050-09-01" bindchange="bindDateChange">
+      <view class='head-text'>
+        <text>{{date.year}}年</text>
+        <text class='arrow'>{{date.month}}月</text>
+        <!-- <icon ></icon> -->
+      </view>
+    </picker>
+  </view>
+  <!-- 菜单【支出、收入】 -->
+  <view class='menu-wrapper'>
+    <view class='menu'>
+      <!-- 支出 -->
+      <view class='menu-item'>
+        <view>
+          <text data-current='0' bindtap='handleChange'>支出</text>
+        </view>
+        <view>
+          <text data-current='0' bindtap='handleChange' class='green {{current === 0 ? "bottom_line_green" : ""}}'></text> </view>
+      </view>
+      <!-- 收入 -->
+      <view class='menu-item'>
+        <view>
+          <text data-current='1' bindtap='handleChange'>收入</text>
+        </view>
+        <view>
+          <text data-current='1' bindtap='handleChange' class='red {{current === 1 ? "bottom_line_red" : ""}}'></text> </view>
+      </view>
+    </view>
+  </view>
+  <!-- 主体 -->
+  <scroll-view scroll-y class='scrollview'>
+    <view class='main'>
+      <view class='submenu'>
+        <view class='submenu-item {{isShowLineHidePan?"submenu-item-selected":""}}' bindtap='handleChangeChart'>
+          <image class='submenu-icon' src='./../../images/line{{isShowLineHidePan?"d":""}}.svg'></image>
+          <text>折线图</text>
+        </view>
+        <view class='submenu-item {{!isShowLineHidePan?"submenu-item-selected":""}}' bindtap='handleChangeChart'>
+          <image class='submenu-icon' src='./../../images/fan{{isShowLineHidePan?"":"d"}}.svg'></image>
+          <text>扇形图</text>
+        </view>
+      </view>
+      <view class='charts'>
+        <view>
+          <block wx:if="{{isShowLineHidePan}}">
+            <view class='chart linechart'>
+              <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandlerLineCanvas"></canvas>
+            </view>
+          </block>
+          <block wx:else>
+            <view class='chart fanchart'>
+              <canvas canvas-id="pieCanvas" class="canvas" style="height:300px" bindtouchstart="touchHandlerPieCanvas"></canvas>
+            </view>
+          </block>
+        </view>
+
+      </view>
+      <view class='divider'></view>
+      <view class='ranking'>
+        <view class='ranking-head'>
+          <block wx:if="{{current === 0}}">
+            <text>支出热榜</text>
+          </block>
+          <block wx:elif="{{current === 1}}">
+            <text>收入热榜</text>
+          </block>
+        </view>
+        <view class='ranking-list'>
+          <block wx:for="{{rankings.list}}" wx:key="{{index}}">
+            <view class='ranking-list-item'>
+              <!-- top -->
+              <view class='ranking-list-top'>
+                <!-- left -->
+                <view>
+                  <image class='icon' src='./../../images/main/{{item.type === 0 ? "zc_" + (item.iconSelected + 1) + ".svg" : "sr_" + (item.iconSelected + 1) + ".svg"}}'></image>
+                  <text>{{item.name}} {{item.items.length}}笔 {{item.items.length/rankings.all*100}}%</text>
+                </view>
+                <!-- right -->
+                <view>
+                  <text>{{item.data}}</text>
+                </view>
+              </view>
+              <!-- bottom -->
+              <view class='ranking-list-bottom'>
+                <progress color='#EB4D45' percent='{{item.data/rankings.money*100}}'></progress>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

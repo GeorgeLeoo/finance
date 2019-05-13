@@ -1,0 +1,58 @@
+/* pages/profile/profile.wxss */
+
+.container {
+  height: calc(100vh);
+  /* background-color: rgb(251, 251, 242); */
+  background-color: rgb(248, 248, 248);
+}
+
+.item {
+  background-color: #fff;
+  /* padding: 10px 20px; */
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.itemtop {
+  padding: 0 20px;
+}
+
+.avatar {
+  border-bottom: 1px solid #ccc;
+  line-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.nickname {
+  /* padding: 20px; */
+  line-height: 40px;
+}
+
+.item-avater {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+
+.mypage {
+  padding: 10px 20px;
+}
+
+.nickname {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.edit-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 6px;
+}
+.right{
+  display: flex;
+  align-items: center;
+}
