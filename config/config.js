@@ -1,9 +1,9 @@
 var config = function() {
-  // var host = '212.64.28.244';
-  var host = '100.100.219.40';
-  var port = '3000';
-  var uploadPort = '8080';
-  var baseUrl = 'http://' + host + ":" + port;
+  var host = '212.64.28.244';  //服务器ip
+//   var host = '100.100.219.40';
+  var port = '3000';//服务器端口
+  var uploadPort = '8080';//图片服务器端口
+  var baseUrl = 'http://' + host + ":" + port;//基础url
   return {
     url: {
       users: {

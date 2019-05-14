@@ -1,60 +1,62 @@
 {
-  "pages": [
-    "pages/login/login",
-    "pages/profile/profile",
-    "pages/bill/bill",
-    "pages/addition/addition",
-    "pages/chart/chart",
-    "pages/catelogsetting/catelogsetting",
-    "pages/search/search",
-    "pages/forget/forget",
-    "pages/addcatalog/addcatalog",
-    "pages/mine/mine",
-    "pages/about/about",
-    "pages/modify/modify",
-    "pages/register/register"
-  ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "backgroundColor": "#f0f0f0",
-    "navigationBarBackgroundColor": "#EB4D45",
-    "navigationBarTitleText": "家庭记账系统",
-    "navigationBarTextStyle": "white"
-  },
-  "sitemapLocation": "sitemap.json",
-  "tabBar": {
-    "selectedColor": "#EB4D45",
-    "list": [
-      {
-        "pagePath": "pages/bill/bill",
-        "text": "账单",
-        "iconPath": "images/tabs/bill_normal.png",
-        "selectedIconPath": "images/tabs/bill_click.png"
-      },
-      {
-        "pagePath": "pages/chart/chart",
-        "text": "图表",
-        "iconPath": "images/tabs/chart_normal.png",
-        "selectedIconPath": "images/tabs/chart_click.png"
-      },
-      {
-        "pagePath": "pages/addition/addition",
-        "text": "记一笔",
-        "iconPath": "images/tabs/addition_normal.png",
-        "selectedIconPath": "images/tabs/addition_click.png"
-      },
-      {
-        "pagePath": "pages/search/search",
-        "text": "搜索",
-        "iconPath": "images/tabs/discovery_normal.png",
-        "selectedIconPath": "images/tabs/discovery_click.png"
-      },
-      {
-        "pagePath": "pages/mine/mine",
-        "text": "我的",
-        "iconPath": "images/tabs/mine_normal.png",
-        "selectedIconPath": "images/tabs/mine_click.png"
-      }
-    ]
-  }
+    "pages": [
+        "pages/login/login",
+        "pages/register/register",
+        "pages/forget/forget",
+        
+        "pages/profile/profile",
+        "pages/bill/bill",
+        "pages/addition/addition",
+        "pages/chart/chart",
+        "pages/catelogsetting/catelogsetting",
+        "pages/search/search",
+        "pages/addcatalog/addcatalog",
+        "pages/mine/mine",
+        "pages/about/about",
+        "pages/modify/modify",
+        "pages/trans/trans"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "backgroundColor": "#f0f0f0",
+        "navigationBarBackgroundColor": "#EB4D45",
+        "navigationBarTitleText": "家庭记账系统",
+        "navigationBarTextStyle": "white"
+    },
+    "sitemapLocation": "sitemap.json",
+    "tabBar": {
+        "selectedColor": "#EB4D45",
+        "list": [
+            {
+                "pagePath": "pages/bill/bill",
+                "text": "账单",
+                "iconPath": "images/tabs/bill_normal.png",
+                "selectedIconPath": "images/tabs/bill_click.png"
+            },
+            {
+                "pagePath": "pages/chart/chart",
+                "text": "图表",
+                "iconPath": "images/tabs/chart_normal.png",
+                "selectedIconPath": "images/tabs/chart_click.png"
+            },
+            {
+                "pagePath": "pages/addition/addition",
+                "text": "记一笔",
+                "iconPath": "images/tabs/addition_normal.png",
+                "selectedIconPath": "images/tabs/addition_click.png"
+            },
+            {
+                "pagePath": "pages/search/search",
+                "text": "搜索",
+                "iconPath": "images/tabs/discovery_normal.png",
+                "selectedIconPath": "images/tabs/discovery_click.png"
+            },
+            {
+                "pagePath": "pages/mine/mine",
+                "text": "我的",
+                "iconPath": "images/tabs/mine_normal.png",
+                "selectedIconPath": "images/tabs/mine_click.png"
+            }
+        ]
+    }
 }
