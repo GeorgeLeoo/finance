@@ -24,12 +24,12 @@
       <navigator hover-class="none" url='./../register/register'><text>新用户注册</text></navigator>
     </view>
   </form>
-  <view class='foot'>
+  <!-- <view class='foot'>
     <view>
       <text class='other'>其它登录方式</text>
     </view>
     <view class='other-btns'>
       <image src='./../../images/wechat.svg' bindtap='handleWXLogin'></image>
     </view>
-  </view>
+  </view> -->
 </view>

@@ -58,7 +58,7 @@ Page({
         getApp().globalData.currentPath = './..' +route.substring(5, route.length );
         this.setData({
             nickname: getApp().globalData.users.nickname,
-            avatar: "http://" + config.host + "/" + getApp().globalData.users.avatarUrl,
+            avatar: "http://" + config.host + "/" + getApp().globalData.users.avatarUrl+"?"+new Date().getTime(),
             host: config.host
         })
     },
@@ -84,8 +84,19 @@ Page({
             getApp().globalData.isUpdateNickName = false;
         }
         if (getApp().globalData.isUpdateAvatar) {
+            // this.setData({
+            //     avatar: getApp().globalData.users.avatarUrl+'?'+new Date().getTime()
+            // })
+            var avatar = "";
+            if (getApp().globalData.isUpload) {
+                avatar = getApp().globalData.users.avatarUrl;
+            } else {
+                avatar = "http://" + config.host + "/" + getApp().globalData.users.avatarUrl + "?" + new Date().getTime()
+            }
             this.setData({
-                avatar: getApp().globalData.users.avatarUrl
+                nickname: getApp().globalData.users.nickname,
+                avatar,
+                host: config.host
             })
             getApp().globalData.isUpdateAvatar = false;
         }

@@ -13,8 +13,7 @@
         "pages/addcatalog/addcatalog",
         "pages/mine/mine",
         "pages/about/about",
-        "pages/modify/modify",
-        "pages/trans/trans"
+        "pages/modify/modify"
     ],
     "window": {
         "backgroundTextStyle": "light",

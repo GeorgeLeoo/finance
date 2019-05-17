@@ -108,7 +108,7 @@ Page({
         e,
         type
     }) {
-        console.log(type)
+        // console.log(type)
         var data = this.data;
         var users = data.users;
         var val = e.detail.value;
@@ -188,7 +188,7 @@ Page({
             method: config.method.post,
             data: this.data.users,
             success: function(res) {
-                console.log(res.data);
+                // console.log(res.data);
 
                 if (res.data.code === 0) {
                     wx.navigateBack({

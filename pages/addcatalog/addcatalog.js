@@ -111,7 +111,7 @@ Page({
                 }
             },
             success: function(res) {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.code === 0) {
                     wx.navigateBack({
                         delta: 1

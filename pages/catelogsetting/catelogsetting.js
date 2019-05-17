@@ -124,7 +124,7 @@ Page({
       success: (res) => {
         if (res.data.code === 0) {
           var data = res.data.data;
-          console.log(data);
+        //   console.log(data);
           for (var i = 0; i < data.length; i++) {
             data[i].data.id = data[i]._id;
             
@@ -145,7 +145,7 @@ Page({
     })
   },
   handleDelBtn: function(e) {
-    console.log(e);
+    // console.log(e);
     this.setData({
       showDel: !this.data.showDel
     });

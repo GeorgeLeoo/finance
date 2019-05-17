@@ -84,7 +84,7 @@ Page({
         });
     },
     handleSearch(e) {
-        console.log(e.detail.value);
+        // console.log(e.detail.value);
         this.loadSearchData(e.detail.value);
     },
     loadSearchData(searchVal) {
@@ -96,7 +96,7 @@ Page({
                 notes: searchVal
             },
             success: (res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.code === 0) {
                     this.setData({
                         lists: res.data.data
@@ -106,7 +106,7 @@ Page({
         })
     },
     handleModify(e) {
-        console.log(e.target.dataset);
+        // console.log(e.target.dataset);
         wx.navigateTo({
             url: './../modify/modify?id=' + e.target.dataset.id,
         })
@@ -114,20 +114,20 @@ Page({
     handleDelete(e) {
 
         var id = e.target.dataset.id;
-        console.log(id);
+        // console.log(id);
         var that = this;
         wx.showModal({
             title: '警告',
             content: '您确定要删除此条记录',
             success(res) {
                 if (res.confirm) {
-                    console.log('用户点击确定')
+                    // console.log('用户点击确定')
                     wx.showLoading({
                         title: '',
                     })
                     that.del(that, id);
                 } else if (res.cancel) {
-                    console.log('用户点击取消')
+                    // console.log('用户点击取消')
                 }
             }
         })
@@ -140,7 +140,7 @@ Page({
                 _id: id
             },
             success: function(res) {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.code === 0) {
                     that.loadData(that);
                     wx.showToast({

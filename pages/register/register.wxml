@@ -27,12 +27,12 @@
       <navigator hover-class="none" url='./../login/login'><text>已有账号，去登录</text></navigator>
     </view> -->
   </form>
-  <view class='foot'>
+  <!-- <view class='foot'>
     <view>
       <text class='other'>其它注册方式</text>
     </view>
     <view class='other-btns'>
       <image src='./../../images/wechat.svg'></image>
     </view>
-  </view>
+  </view> -->
 </view>

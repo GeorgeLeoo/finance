@@ -1,4 +1,5 @@
 <view class="container">
+<wxs module="filters" src="./../../filter/filter.wxs"></wxs>
   <!-- 日期 -->
   <view class='head'>
     <picker mode="date" fields="month" value="{{date}}" start="1996-09-01" end="3050-09-01" bindchange="bindDateChange">
@@ -76,7 +77,8 @@
                 <!-- left -->
                 <view>
                   <image class='icon' src='./../../images/main/{{item.type === 0 ? "zc_" + (item.iconSelected + 1) + ".svg" : "sr_" + (item.iconSelected + 1) + ".svg"}}'></image>
-                  <text>{{item.name}} {{item.items.length}}笔 {{item.items.length/rankings.all*100}}%</text>
+                  <text>
+                  {{item.name}} {{item.items.length}}笔 {{filters.toFix(item.items.length/rankings.all)*100}}%</text>
                 </view>
                 <!-- right -->
                 <view>

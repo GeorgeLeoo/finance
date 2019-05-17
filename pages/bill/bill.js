@@ -98,7 +98,7 @@ Page({
 
     },
     bindDateChange(e) {
-        console.log()
+        // console.log()
         var date = e.detail.value;
         var arr = date.split('-');
         this.setData({
@@ -126,7 +126,7 @@ Page({
             },
             success: function(res) {
                 var data = res.data.data;
-                console.log(data);
+                // console.log(data);
 
                 var getMoney = 0;
                 var useMoney = 0;
@@ -221,14 +221,14 @@ Page({
                     },
                     list: arr
                 });
-                console.log(that.data);
+                // console.log(that.data);
                 wx.hideLoading();
             }
         })
     },
     handleDelete(e) {
         var id = e.target.dataset.id;
-        console.log(id);
+        // console.log(id);
 
         var that = this;
         wx.showModal({
@@ -236,13 +236,13 @@ Page({
             content: '您确定要删除此条记录',
             success(res) {
                 if (res.confirm) {
-                    console.log('用户点击确定')
+                    // console.log('用户点击确定')
                     wx.showLoading({
                         title: '',
                     })
                     that.del(that, id);
                 } else if (res.cancel) {
-                    console.log('用户点击取消')
+                    // console.log('用户点击取消')
                 }
             }
         })
@@ -255,7 +255,7 @@ Page({
                 _id: id
             },
             success: function(res) {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.code === 0) {
                     that.loadData(that);
                     wx.showToast({
@@ -270,7 +270,7 @@ Page({
         })
     },
     handleModify(e) {
-        console.log(e.target.dataset);
+        // console.log(e.target.dataset);
         wx.navigateTo({
             url: './../modify/modify?id=' + e.target.dataset.id,
         })

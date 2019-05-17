@@ -1,6 +1,7 @@
 // pages/login/login.js
 var config = require('./../../config/config.js');
 var utils = require('./../../utils/util.js');
+// var Http = require('./../../http/http.js');
 var app = getApp();
 
 Page({
@@ -138,22 +139,23 @@ Page({
         wx.showLoading({
             title: '正在登录...',
         });
-        
         wx.request({
             url: config.url.users.login,
             method: config.method.post,
             data: this.data.users,
             success: function(res) {
-                console.log(res.data)
+                // console.log(res.data)
 
                 var title = '';
                 var duration = 1000;
                 if (res.data.code === 0) {
                     var users = res.data.data;
-                    console.log(users);
-                    // users.pwd = '';
+                    // console.log(users);
+                    users.pwd = '';
+                    
                     getApp().globalData.users = users;
                     getApp().globalData.isLogin = true;
+                    getApp().globalData.users.avatarUrl  = getApp().globalData.users.avatarUrl + '?' + new Date().getTime()
 
                     wx.switchTab({
                         url: './../bill/bill',
@@ -184,7 +186,7 @@ Page({
     handleWXLogin: function() {
         wx.login({
             success: (res) => {
-                console.log(res);
+                // console.log(res);
                 if (res.code) {
                     wx.request({
                         url: config.url.codeSession,
@@ -193,7 +195,7 @@ Page({
                             code: res.code,
                         },
                         success: (res) => {
-                            console.log(res.data);
+                            // console.log(res.data);
                             wx.setStorageSync('user', res.data.data);
                         }
                     })

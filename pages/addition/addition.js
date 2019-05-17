@@ -48,7 +48,7 @@ Page({
     var catelogs_in = [];
     Object.assign(catelogs_out, app.globalData.c_out);
     Object.assign(catelogs_in, app.globalData.c_in);
-    console.log(catelogs_out);
+    // console.log(catelogs_out);
     wx.request({
       url: config.url.catalog.catalog,
       method: config.method.get,
@@ -70,8 +70,8 @@ Page({
               catelogs_in.push(data[i].data);
             }
           }
-          console.log(this.data);
-          console.log(app);
+        //   console.log(this.data);
+        //   console.log(app);
           this.setData({
             catelogs_in,
             catelogs_out
@@ -208,9 +208,9 @@ Page({
     wx.showLoading({
       title: '',
     })
-    console.log(this.data)
+    // console.log(this.data)
     var data = this.data;
-    console.log(data);
+    // console.log(data);
     var sendData;
     if (data.current === 0) {
       sendData = data.data_out;
@@ -219,13 +219,13 @@ Page({
     }
     sendData.tel = getApp().globalData.users.tel;
     sendData.type = data.current;
-    console.log(sendData);
+    // console.log(sendData);
     wx.request({
       url: config.url.finance.saveBill,
       method: config.method.post,
       data: sendData,
       success: function(res) {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.code === 0) {
           getApp().globalData.isBackToBill = true;
           wx.switchTab({

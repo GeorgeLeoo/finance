@@ -100,7 +100,7 @@ Page({
                 month: arr[1]
             }
         });
-        // this.loadData(this);
+        this.loadData(this);
     },
     handleChange(e) {
         console.log(e.target.dataset)
@@ -134,19 +134,19 @@ Page({
 
     },
     touchHandlerPieCanvas: function(e) {
-        console.log(pieChart.getCurrentDataIndex(e));
+        // console.log(pieChart.getCurrentDataIndex(e));
     },
     drawLine: function() {
         var windowWidth = 100;
         try {
             var res = wx.getSystemInfoSync();
-            console.log(res);
+            // console.log(res);
             windowWidth = res.windowWidth;
         } catch (e) {
-            console.error('getSystemInfoSync failed!');
+            // console.error('getSystemInfoSync failed!');
         }
         var rankings = this.data.rankings;
-        console.log(rankings);
+        // console.log(rankings);
 
         if (rankings.linearr.length !== 0) {
             var simulationData = this.createSimulationData();
@@ -192,10 +192,10 @@ Page({
         var windowWidth = 100;
         try {
             var res = wx.getSystemInfoSync();
-            console.log(res);
+            // console.log(res);
             windowWidth = res.windowWidth;
         } catch (e) {
-            console.error('getSystemInfoSync failed!');
+            // console.error('getSystemInfoSync failed!');
         }
         var rankings = this.data.rankings;
         // console.log(rankings);
@@ -244,11 +244,11 @@ Page({
                 date: that.data.date.year + "-" + that.data.date.month
             },
             success: function(res) {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.code === 0) {
                     var data = res.data.data;
                     if (res.data.length !== 0) {
-                        console.log(data);
+                        // console.log(data);
                         var arr = [];
                         var linearr = [];
                         for (var k = 1; k < 32; k++) {

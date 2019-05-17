@@ -9,6 +9,7 @@ App({
         isBackToBill: false,
         isUpdateNickName: false,
         isUpdateAvatar: false,
+        isUpload:false,
         isLogin: true,
         bill: {},
         users: {

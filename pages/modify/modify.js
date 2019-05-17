@@ -83,7 +83,7 @@ Page({
       success: (res) => {
         if (res.data.code === 0) {
           var d = res.data.data;
-          console.log(d);
+        //   console.log(d);
           var catelogs = [];
           if(res.data.data.type===0){
             catelogs = this.data.catelogs_out
@@ -223,13 +223,13 @@ Page({
     sendData.tel = getApp().globalData.users.tel;
     sendData.type = data.current;
     // sendData._id = data
-    console.log(sendData);
+    // console.log(sendData);
     wx.request({
       url: config.url.finance.modifyBill,
       method: config.method.post,
       data: sendData,
       success: function (res) {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.code === 0) {
          
           getApp().globalData.isBackToBill = true;
