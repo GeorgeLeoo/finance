@@ -6,7 +6,7 @@
 	(3). 使用微信小程序技术 
 	(4). 采用模块化、组件化、工程化等模式开发
 ### 2. 项目功能界面
-![Image text](./screenShots/.png)
+![Image text](./screenShots/all.png)
 在 1.0.2版本中删除了扇形图
 ### 3. 项目目录
 ![Image text](./screenShots/catalogue.png)
