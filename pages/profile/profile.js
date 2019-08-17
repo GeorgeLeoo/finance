@@ -1,52 +1,35 @@
 // pages/profile/profile.js
 var config = require('./../../config/config.js');
-var utils = require('./../../utils/util.js');
+const api = require('./../../http/api.js');
+
 var app = getApp();
 Page({
 
-    /**
-     * 页面的初始数据
-     */
     data: {
         avatarurl: './../../images/avatar.png',
         nickname: 'djnbsj',
         isEdit: false
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function(options) {
+    onLoad: function (options) {
         // console.log(app);
         var avatarurl = "";
         if (getApp().globalData.isUpload) {
-            avatarurl = getApp().globalData.users.avatarUrl ;
+            avatarurl = getApp().globalData.users.avatarUrl;
         } else {
-            avatarurl = 'http://' + config.host + '/' + getApp().globalData.users.avatarUrl
+            avatarurl = getApp().globalData.users.avatarUrl ? 'http://' + config.host + '/' + getApp().globalData.users.avatarUrl : "./../../images/avatar.png"
         }
-        
+
         this.setData({
             nickname: getApp().globalData.users.nickname,
             avatarurl
         });
     },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function() {
+    onShow: function () {
         wx.setNavigationBarTitle({
             title: '个人信息',
         })
         // console.log('show');
-        if(getApp().globalData.users.isUpload){
+        if (getApp().globalData.users.isUpload) {
             var avatarurl = "";
             if (getApp().globalData.isUpload) {
                 avatarurl = getApp().globalData.users.avatarUrl;
@@ -60,42 +43,7 @@ Page({
             });
         }
     },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function() {
-        // console.log('hide');
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function() {
-
-    },
-    handlerAvatar: function() {
+    handlerAvatar: function () {
         wx.showActionSheet({
             itemList: ['从相册选取'],
             success: (res) => {
@@ -108,7 +56,7 @@ Page({
             }
         })
     },
-    takePhoto: function() {
+    takePhoto: function () {
         wx.navigateTo({
             url: './../camera/camera',
         })
@@ -119,73 +67,57 @@ Page({
         //   }　　
         // })
     },
-    pickPhoto: function() {
+    pickPhoto: function () {
         wx.chooseImage({
             count: 1,
             size: 'compressed',
             success: (res) => {
-                // console.log(res);
-                wx.uploadFile({
-                    url: config.url.users.uploadAvatar,
-                    filePath: res.tempFilePaths[0],
-                    name: "avatar",
-                    formData: {
-                        tel: app.globalData.users.tel
-                    },
-                    success: (res) => {
-                        // console.log(res.data);
-                        if (JSON.parse(res.data).code === 0) {
-                            wx.showToast({
-                                title: '头像上传成功',
-                            })
-                            getApp().globalData.isUpload = true;
-                        }
+                let data = {
+                    data: {tel: app.globalData.users.tel},
+                    fileOptions: {
+                        filePath: res.tempFilePaths[0],
+                        name: 'avatar'
                     }
-                })
-                this.setData({
-                    avatarurl: res.tempFilePaths[0]
+                };
+                api.avatar(data).then((res1) => {
+                    console.log(res1);
+                    this.setData({
+                        avatarurl: res.tempFilePaths[0]
+                    });
+                    getApp().globalData.isUpdateAvatar = true;
+                }).catch((errMsg) => {
+                    console.log(errMsg);
                 });
-                getApp().globalData.users.avatarUrl = this.data.avatarurl;
-                getApp().globalData.isUpdateAvatar = true;
+
             },
         })
     },
-    handleEdit: function() {
+    handleEdit: function () {
         this.setData({
             isEdit: true
         })
     },
-    watchNickname: function(e) {
+    watchNickname: function (e) {
         this.setData({
             nickname: e.detail.value
         });
     },
-    handleSaveNickname: function() {
+    handleSaveNickname: function () {
         this.setData({
             isEdit: false
-        })
-        // console.log('save');
-        wx.request({
-            url: config.url.users.updateNickname,
-            method: config.method.post,
-            data: {
-                tel: getApp().globalData.users.tel,
-                nickname: this.data.nickname
-            },
-            success: (res) => {
-                // console.log(res);
-                if (res.data.code === 0) {
-                    wx.showToast({
-                        title: '昵称更新成功',
-                    })
-                    getApp().globalData.users.nickname = this.data.nickname;
-                    getApp().globalData.isUpdateNickName = true;
-                } else {
-                    wx.showToast({
-                        title: '昵称更新失败',
-                    })
-                }
-            }
-        })
+        });
+        let data = {
+            tel: getApp().globalData.users.tel,
+            nickname: this.data.nickname
+        };
+        api.updateNickname(data).then((res) => {
+            wx.showToast({
+                title: '昵称更新成功',
+            });
+            getApp().globalData.users.nickname = this.data.nickname;
+            getApp().globalData.isUpdateNickName = true;
+        }).catch((errMsg) => {
+            console.log(errMsg);
+        });
     }
-})
+});

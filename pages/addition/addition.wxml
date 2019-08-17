@@ -1,3 +1,4 @@
+<!-- 记一笔 -->
 <view class='container'>
   <view class='menu'>
     <view class='top-menu'>
@@ -11,7 +12,7 @@
     <!-- 支出 -->
     <swiper-item class='swiper-item'>
       <view class='item-wrapper'>
-        <view class='item' wx:for="{{catelogs_out}}" wx:key="{{index}}">
+        <view class='item' wx:for="{{categories_out}}" wx:key="{{index}}">
           <image class='{{data_out.iconSelected === index ? "red": "blue"}}' bindtap='iconClick' data-id='{{index}}' src='{{item.icon }}'></image>
           <text>{{item.text}}</text>
         </view>
@@ -44,7 +45,7 @@
     <!-- 收入 -->
     <swiper-item class='swiper-item'>
       <view class='item-wrapper'>
-        <view class='item' wx:for="{{catelogs_in}}" wx:key="{{index}}">
+        <view class='item' wx:for="{{categories_in}}" wx:key="{{index}}">
           <image class='{{data_in.iconSelected === index ? "red": "blue"}}' bindtap='iconClick' data-id='{{index}}' src='{{item.icon }}'></image>
           <text>{{item.text}}</text>
         </view>

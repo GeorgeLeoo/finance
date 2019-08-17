@@ -1,3 +1,4 @@
+<!-- 我的 -->
 <view class='container'>
   <view class='head'>
     <navigator hover-class="none" url='../profile/profile'>

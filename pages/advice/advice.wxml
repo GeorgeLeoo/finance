@@ -1,0 +1,11 @@
+<view class="container">
+    <view>
+        <textarea placeholder='请输入你的反馈信息'></textarea>
+    </view>
+    <view>
+        <input placeholder='请留下你的联系方式'></input>
+    </view>
+    <view>
+    <button>确定</button>
+    </view>
+</view>

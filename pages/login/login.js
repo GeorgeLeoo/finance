@@ -1,15 +1,9 @@
 // pages/login/login.js
-var config = require('./../../config/config.js');
-var utils = require('./../../utils/util.js');
-// var Http = require('./../../http/http.js');
-var app = getApp();
+const config = require('./../../config/config.js');
+const utils = require('./../../utils/util.js');
+const api = require('./../../http/api.js');
 
 Page({
-
-    /**
-     * 页面的初始数据
-     */
-
     data: {
         flg_loginbtn: true,
         users: {
@@ -18,68 +12,16 @@ Page({
         }
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function(options) {
-       
+    onLoad: function (options) {
         wx.setNavigationBarTitle({
             title: '家庭记账系统-登录',
         })
     },
 
     /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function() {
-       
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function() {
-
-    },
-    /**
      * 监听手机号输入框
      */
-    watchTel: function(e) {
+    watchTel: function (e) {
         this.handleWatch({
             e,
             type: 'tel'
@@ -88,24 +30,21 @@ Page({
     /**
      * 监听密码输入框
      */
-    watchPwd: function(e) {
+    watchPwd: function (e) {
         this.handleWatch({
             e,
             type: 'pwd'
         });
     },
     /**
-     * 公共监听处理
+     * 公共监听处理input
      */
-    handleWatch: function({
-        e,
-        type
-    }) {
-        var  data = this.data;
-        var users = data.users;
-        var val = e.detail.value;
-        var flg_loginbtn = true;
-        var key = '';
+    handleWatch: function ({e, type}) {
+        const data = this.data;
+        const users = data.users;
+        const val = e.detail.value;
+        let flg_loginbtn = true;
+        let key = '';
 
         if (type === 'pwd') {
             key = 'tel';
@@ -123,67 +62,64 @@ Page({
             flg_loginbtn
         });
     },
+    _login: function (data) {
+        api.login(data)
+            .then((res) => {
+                let user = res[0];
+                let avatarUrls = user.avatarUrl.split("");
+                avatarUrls.splice(11, 13);
+                let avatarUrl = avatarUrls.join("");
+                user.avatarUrl = avatarUrl;
+                getApp().globalData.users.avatarUrl = avatarUrl;
+                getApp().globalData.users = user;
+                getApp().globalData.isLogin = true;
+
+                wx.switchTab({
+                    url: './../bill/bill',
+                })
+            })
+            .catch((errMsg) => {
+                console.log(errMsg);
+                wx.showToast({
+                    title: errMsg,
+                    icon: 'none',
+                    duration: 2000
+                })
+            });
+    },
     /**
      * 登录
      */
-    handleLogin: function(e) {
-        // var that = this;
+    handleLogin: function (e) {
+        // 手机号验证
         if (!utils.validateTel(this.data.users.tel)) {
             wx.showModal({
                 title: '提示',
                 content: '请输入正确的手机号',
                 showCancel: false
-            })
+            });
             return;
         }
         wx.showLoading({
             title: '正在登录...',
         });
-        wx.request({
-            url: config.url.users.login,
-            method: config.method.post,
-            data: this.data.users,
-            success: function(res) {
-                // console.log(res.data)
-
-                var title = '';
-                var duration = 1000;
-                if (res.data.code === 0) {
-                    var users = res.data.data;
-                    // console.log(users);
-                    users.pwd = '';
-                    
-                    getApp().globalData.users = users;
-                    getApp().globalData.isLogin = true;
-                    getApp().globalData.users.avatarUrl  = getApp().globalData.users.avatarUrl + '?' + new Date().getTime()
-
-                    wx.switchTab({
-                        url: './../bill/bill',
-                    })
-
-                } else {
-                    wx.showToast({
-                        title: res.data.msg,
-                        icon: 'none',
-                        duration: 2000
-                    });
-                }
-            },
-            fail: function(e) {
+        // 获取 token
+        api.getToken(this.data.users.tel)
+            .then((res) => {
+                // 存储 token 信息
+                wx.setStorageSync('token', res);
+                // 登录
+                this._login(this.data.users)
+            })
+            .catch((errMsg) => {
                 wx.showToast({
-                    title: '登录失败',
-                    icon: 'none',
-                    duration: 2000
-                })
-            },
-            complete: function() {
-                wx.hideLoading();
-            }
-        });
-
+                    title: 'token失效'
+                });
+                console.log(errMsg);
+            });
     },
 
-    handleWXLogin: function() {
+    handleWXLogin: function () {
         wx.login({
             success: (res) => {
                 // console.log(res);
@@ -203,4 +139,4 @@ Page({
             }
         })
     }
-})
+});

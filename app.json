@@ -1,9 +1,10 @@
 {
     "pages": [
+        
         "pages/login/login",
+        "pages/circle/circle",
         "pages/register/register",
         "pages/forget/forget",
-        
         "pages/profile/profile",
         "pages/bill/bill",
         "pages/addition/addition",
@@ -13,7 +14,8 @@
         "pages/addcatalog/addcatalog",
         "pages/mine/mine",
         "pages/about/about",
-        "pages/modify/modify"
+        "pages/advice/advice"
+        
     ],
     "window": {
         "backgroundTextStyle": "light",
@@ -37,12 +39,6 @@
                 "text": "图表",
                 "iconPath": "images/tabs/chart_normal.png",
                 "selectedIconPath": "images/tabs/chart_click.png"
-            },
-            {
-                "pagePath": "pages/addition/addition",
-                "text": "记一笔",
-                "iconPath": "images/tabs/addition_normal.png",
-                "selectedIconPath": "images/tabs/addition_click.png"
             },
             {
                 "pagePath": "pages/search/search",

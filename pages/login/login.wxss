@@ -1,91 +1,96 @@
 /* pages/login/login.wxss */
 
 .container {
-  background-color: rgb(248, 248, 248);
+    background-color: rgb(248, 248, 248);
 }
 
 .head {
-  text-align: center;
-  padding-bottom: 20px;
+    text-align: center;
+    padding-bottom: 20px;
 }
 
 .logo {
-  width: 50px;
-  height: 50px;
-  margin-top: 20px;
+    width: 50px;
+    height: 50px;
+    margin-top: 20px;
 }
 
 .app-name {
-  font-size: 16px;
-  font-weight: normal;
+    font-size: 16px;
+    font-weight: normal;
 }
 
 .login-input {
-  font-size: 16px;
-  padding: 10px 20px;
-  border-bottom: 1px solid rgb(248, 248, 248);
-  height: 30px;
-  line-height: 30px;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgb(248, 248, 248);
+    height: 30px;
+    line-height: 30px;
 }
 
 .login-form-input-group {
-  background: #fff;
+    background: #fff;
 }
 
 .login-btn-wrapper {
-  padding: 20px;
+    padding: 20px;
 }
 
 .login-btn {
-  background-color: rgba(235,77,69, 1);
-  border: none;
-  color: #fff;
-  font-size: 18px;
+    background-color: rgba(235, 77, 69, 1);
+    border: none;
+    color: #fff;
+    font-size: 18px;
 }
 
 .login-btn[disabled] {
-  background-color: rgba(235,77,69, 0.3) !important;
-  color: #fff!important;
+    background-color: rgba(235, 77, 69, 0.3) !important;
+    color: #fff !important;
 }
 
 .login-bot {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  font-size: 14px;
-  color: #ccc;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+.login-bot text{
+    display: inline-block;
+    padding-bottom: 20px;
 }
 
 .foot {
-  text-align: center;
-  position: absolute;
-  left: 0;
-  bottom: 10%;
-  width: 100%;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    bottom: 10%;
+    width: 100%;
 }
 
 .other {
-  font-size: 14px;
-  color: #ccc;
+    font-size: 14px;
+    color: #ccc;
 }
 
 .other::after, .other::before {
-  content: '';
-  display: inline-block;
-  width: 20%;
-  height: 1px;
-  background-color: #ccc;
-  vertical-align: middle;
-  margin: 0 10px;
+    content: '';
+    display: inline-block;
+    width: 20%;
+    height: 1px;
+    background-color: #ccc;
+    vertical-align: middle;
+    margin: 0 10px;
 }
 
 .other-btns {
-  text-align: center;
-  margin-top: 18%;
+    text-align: center;
+    margin-top: 18%;
 }
 
 .other-btns image {
-  width: 50px;
-  height: 50px;
-  padding: 0 30px;
+    width: 50px;
+    height: 50px;
+    padding: 0 30px;
 }

@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "bill-list": "./../../components/bill-list/bill-list"
+  },
   "enablePullDownRefresh": true
 }

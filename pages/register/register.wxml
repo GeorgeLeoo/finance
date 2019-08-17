@@ -1,3 +1,4 @@
+<!-- 注册 -->
 <view class='container'>
   <view class='head'>
     <view>
@@ -10,7 +11,7 @@
   <form class='register-form' method='post' action=''>
    <view class='register-form-input-group'>
       <view class='register-input-group'>
-        <input class='register-input' type='number' placeholder='请输入手机号' value='{{users.tel}}' bindinput='watchTel'></input>
+        <input class='register-input' type='text' placeholder='请输入手机号' value='{{users.tel}}' bindinput='watchTel'></input>
       </view>
       <view class='register-input-group register-input-vertify-wraper'>
         <input class='register-input register-input-vertify' type='number' placeholder='请输入验证码' value='{{verifyCode}}' bindinput='watchVerifyCode'></input>

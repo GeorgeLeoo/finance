@@ -1,0 +1,6 @@
+{
+    "component": true,
+    "usingComponents": {
+        "bill-list-item":"./../bill-list-item/bill-list-item"
+    }
+}

@@ -1,11 +1,9 @@
 // pages/register/register.js
-var config = require('./../../config/config.js');
-var utils = require('./../../utils/util.js');
+const utils = require('./../../utils/util.js');
+const api = require('./../../http/api.js');
+
 Page({
 
-    /**
-     * 页面的初始数据
-     */
     data: {
         users: {
             tel: '',
@@ -17,104 +15,48 @@ Page({
         isVerify: true
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function(options) {
-        // console.log(this.data)
+    onLoad: function (options) {
         wx.setNavigationBarTitle({
             title: '新用户注册',
         })
     },
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function() {
-
-    },
-    watchTel: function(e) {
+    watchTel: function (e) {
         this.handleWatch({
             e,
             type: 'tel'
         });
     },
-    watchVerifyCode: function(e) {
+    watchVerifyCode: function (e) {
         this.handleWatch({
             e,
             type: 'code'
         });
     },
-    watchPwd: function(e) {
+    watchPwd: function (e) {
         this.handleWatch({
             e,
             type: 'pwd'
-        });   
+        });
     },
-    handleWatch: function({
-        e,
-        type
-    }) {
+    handleWatch: function ({
+                               e,
+                               type
+                           }) {
         // console.log(type)
-        var data = this.data;
-        var users = data.users;
-        var val = e.detail.value;
-        var flg_regbtn = true;
-        var flg_verifybtn;
-        var key = '';
+        let data = this.data;
+        const users = data.users;
+        const val = e.detail.value;
+        let flg_regbtn = true;
+        let flg_verifybtn;
+        let key = '';
 
         if (type === 'tel') {
             key = 'pwd';
             //如果手机号正确，则将“获取验证码”按钮设可以点击
             if (utils.validateTel(val)) {
                 flg_verifybtn = false;
-                if (data.verifyCode !== '' && users.pwd !== '') {
-                    flg_regbtn = false;
-                } else {
-                    flg_regbtn = true;
-                }
+                flg_regbtn = !(data.verifyCode !== '' && users.pwd !== '');
             } else {
                 flg_verifybtn = true;
                 flg_regbtn = true;
@@ -128,11 +70,7 @@ Page({
         }
         if (type === 'pwd') {
             key = 'tel';
-            if (val !== '') {
-                flg_regbtn = false;
-            } else {
-                flg_regbtn = true;
-            }
+            flg_regbtn = (val === '');
             users[type] = val;
             data = {
                 users,
@@ -144,11 +82,7 @@ Page({
             if (val === '') {
                 flg_regbtn = true;
             } else {
-                if (users.tel !== '' && users.pwd != '') {
-                    flg_regbtn = false;
-                } else {
-                    flg_regbtn = true;
-                }
+                flg_regbtn = !(users.tel !== '' && users.pwd !== '');
             }
 
             data = {
@@ -159,47 +93,44 @@ Page({
 
         this.setData(data);
     },
-    handleRegister: function(e) {
+    handleRegister: function (e) {
         if (!utils.validateTel(this.data.users.tel)) {
             wx.showModal({
                 title: '提示',
                 content: '请输入正确的手机号',
                 showCancel: false
-            })
+            });
             return;
         }
+        // if (!utils.validatePwd(this.data.users.pwd)) {
+        //     wx.showModal({
+        //         title: '提示',
+        //         content: '1.密码必须由字母、数字、特殊符号组成，区分大小\n2.特殊符号包含（,._ ~ ! @ # $ ^ & *）\n3.密码长度为8 - 20位',
+        //         showCancel: false
+        //     })
+        //     return;
+        // }
         wx.showLoading({
             title: '正在注册...',
         });
-        wx.request({
-            url: config.url.users.register,
-            method: config.method.post,
-            data: this.data.users,
-            success: function(res) {
-                // console.log(res.data);
-                if (res.data.code === 0) {
-                    wx.navigateBack({
-                        delta: 1
-                    })
-                } else {
-                    wx.showToast({
-                        title: res.data.msg,
-                        icon: 'none',
-                        duration: 2000
-                    });
-                }
-            },
-            fail: function(e) {
+        api.register(this.data.users)
+            .then((res) => {
                 wx.showToast({
-                    title: '注册失败',
+                    title: '注册成功',
+                    icon: 'none',
+                    duration: 2000
+                });
+                wx.navigateBack({
+                    delta: 1
+                });
+            })
+            .catch((errMsg) => {
+                wx.showToast({
+                    title: errMsg,
                     icon: 'none',
                     duration: 2000
                 })
-            },
-            complete: function() {
-                wx.hideLoading();
-            }
-        })
+            })
     },
 
 })

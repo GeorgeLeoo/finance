@@ -1,0 +1,4 @@
+/* pages/advice/advice.wxss */
+.container{
+    padding: 10px;
+}

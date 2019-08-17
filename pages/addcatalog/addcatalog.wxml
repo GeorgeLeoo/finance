@@ -1,3 +1,4 @@
+<!-- 类别添加 -->
 <view class='container'>
   <view class='name'>
     <text>类别名称</text>

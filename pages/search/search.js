@@ -1,77 +1,21 @@
 // pages/search/search.js
-var utils = require('./../../utils/util.js');
-var config = require('./../../config/config.js');
-var globalData =  getApp().globalData;
-Page({
+const api = require('./../../http/api.js');
 
-    /**
-     * 页面的初始数据
-     */
+const globalData = getApp().globalData;
+const {c_out,c_in} = globalData;
+Page({
     data: {
         searchInput: ''
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function(options) {
-        this.setData({
-            c_out:  globalData.c_out,
-            c_in:  globalData.c_in
-        });
-        var route = this.route;
-         globalData.currentPath = './..'+route.substring(5, route.length );
+    onLoad: function (options) {
+        
+        let route = this.route;
+        globalData.currentPath = './..' + route.substring(5, route.length);
     },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function() {
+    onShow: function () {
         wx.setNavigationBarTitle({
             title: '搜索',
         })
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function() {
-
     },
     watchSearchInput(e) {
         this.setData({
@@ -84,75 +28,75 @@ Page({
         });
     },
     handleSearch(e) {
-        // console.log(e.detail.value);
         this.loadSearchData(e.detail.value);
     },
     loadSearchData(searchVal) {
-        wx.request({
-            url: config.url.finance.search,
-            method: config.method.get,
-            data: {
-                tel:  globalData.users.tel,
-                notes: searchVal
-            },
-            success: (res) => {
-                // console.log(res.data);
-                if (res.data.code === 0) {
-                    this.setData({
-                        lists: res.data.data
-                    });
-                }
-            }
+        let data = {
+            tel: globalData.users.tel,
+            notes: searchVal
+        };
+        api.search(data).then((res) => {
+            res.map(item => item.type === 0 ? item.text = c_out[item.iconSelected].text : item.text = c_in[item.iconSelected].text)
+            this.setData({
+                lists: res
+            });
+        }).catch((errMsg) => {
+            console.log(errMsg);
         })
+
     },
     handleModify(e) {
-        // console.log(e.target.dataset);
+        let {_id, getWeek, date, notes, money, type, iconSelected} = e.target.dataset.item;
         wx.navigateTo({
-            url: './../modify/modify?id=' + e.target.dataset.id,
+            url: './../addition/addition?route=pages/search/search&data=' + JSON.stringify({
+                _id,
+                getWeek,
+                date,
+                notes,
+                money,
+                type,
+                iconSelected
+            })
         })
     },
     handleDelete(e) {
-
-        var id = e.target.dataset.id;
-        // console.log(id);
-        var that = this;
+        const id = e.target.dataset.id;
+        const index = e.target.dataset.index;
+        const that = this;
         wx.showModal({
             title: '警告',
             content: '您确定要删除此条记录',
             success(res) {
                 if (res.confirm) {
-                    // console.log('用户点击确定')
                     wx.showLoading({
                         title: '',
-                    })
-                    that.del(that, id);
-                } else if (res.cancel) {
-                    // console.log('用户点击取消')
+                    });
+                    that.del(that, id, index);
+                    console.log(1111111);
                 }
             }
         })
     },
-    del(that, id) {
-        wx.request({
-            url: config.url.finance.del,
-            method: config.method.get,
-            data: {
-                _id: id
-            },
-            success: function(res) {
-                // console.log(res.data);
-                if (res.data.code === 0) {
-                    that.loadData(that);
-                    wx.showToast({
-                        title: '删除成功',
-                        duration: 1000
-                    })
-                }
-            },
-            complete: function() {
-                wx.hideLoading();
-            }
-        })
-    },
+    del(that, id,index) {
+        api.delBills(id).then((res) => {
+            let lists = that.data.lists;
+            lists.splice(index,1);
+            that.setData({
+                lists
+            });
 
+            getApp().globalData.isRefreshBills = true;
+
+            wx.showToast({
+                title: '删除成功',
+                duration: 1000
+            })
+        }).catch((errMsg) => {
+            console.log(errMsg);
+            wx.showToast({
+                title: errMsg,
+                duration: 1000
+            })
+        });
+    }
 })

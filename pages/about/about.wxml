@@ -1,9 +1,10 @@
+<!-- 关于 -->
 <view class='container'>
   <scroll-view>
     <view class='head'>
       <image class='logo avatar' src='./../../images/logo.png'></image>
       <text class='appName'>家庭记账系统</text>
-      <text class='version'>版本号：V1.0.1</text>
+      <text class='version'>版本号：V1.0.2</text>
     </view>
     <view class='section'>
       <view class='item'>

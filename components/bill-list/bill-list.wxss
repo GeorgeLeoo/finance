@@ -1,0 +1,21 @@
+/* components/bill-list/bill-list.wxss */
+
+.main-head {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: rgb(245, 244, 246); */
+}
+
+.main-body {
+    margin-bottom: 10px;
+}
+
+
+
+
+

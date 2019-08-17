@@ -9,11 +9,11 @@ Page({
         nickname: '',
         avatar: '',
         mines: [{
-                class: '',
-                icon: './../../images/mine/setting_category.svg',
-                text: '类别设置',
-                url: './../catelogsetting/catelogsetting'
-            },
+            class: '',
+            icon: './../../images/mine/setting_category.svg',
+            text: '类别设置',
+            url: './../catelogsetting/catelogsetting'
+        },
             {
                 class: 'bottom10',
                 icon: './../../images/mine/setting_password.svg',
@@ -50,15 +50,16 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function(options) {
+    onLoad: function (options) {
         wx.showLoading({
             title: '',
         })
         var route = this.route;
-        getApp().globalData.currentPath = './..' +route.substring(5, route.length );
+        console.log(getApp().globalData.users);
+        getApp().globalData.currentPath = './..' + route.substring(5, route.length);
         this.setData({
             nickname: getApp().globalData.users.nickname,
-            avatar: "http://" + config.host + "/" + getApp().globalData.users.avatarUrl+"?"+new Date().getTime(),
+            avatar: getApp().globalData.users.avatarUrl ? "http://" + config.host + "/" + getApp().globalData.users.avatarUrl + "?" + new Date().getTime() : "./../../images/avatar.png",
             host: config.host
         })
     },
@@ -66,7 +67,7 @@ Page({
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
-    onReady: function() {
+    onReady: function () {
         wx.setNavigationBarTitle({
             title: '我的',
         })
@@ -76,67 +77,23 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function() {
+    onShow: function () {
         if (getApp().globalData.isUpdateNickName) {
             this.setData({
                 nickname: getApp().globalData.users.nickname
-            })
+            });
             getApp().globalData.isUpdateNickName = false;
         }
         if (getApp().globalData.isUpdateAvatar) {
-            // this.setData({
-            //     avatar: getApp().globalData.users.avatarUrl+'?'+new Date().getTime()
-            // })
-            var avatar = "";
-            if (getApp().globalData.isUpload) {
-                avatar = getApp().globalData.users.avatarUrl;
-            } else {
-                avatar = "http://" + config.host + "/" + getApp().globalData.users.avatarUrl + "?" + new Date().getTime()
-            }
             this.setData({
-                nickname: getApp().globalData.users.nickname,
-                avatar,
-                host: config.host
-            })
+                avatar: getApp().globalData.users.avatarUrl ? "http://" + config.host + "/" + getApp().globalData.users.avatarUrl + "?" + new Date().getTime() : "./../../images/avatar.png",
+            });
             getApp().globalData.isUpdateAvatar = false;
         }
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function() {
 
     },
 
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function() {
-
-    },
-    handleLogout: function() {
+    handleLogout: function () {
         wx.showModal({
             title: '提示',
             content: '您确定要退出当前账号？',

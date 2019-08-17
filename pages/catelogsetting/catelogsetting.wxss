@@ -95,6 +95,7 @@
   padding: 6px;
   border-radius: 100%;
   background-color: #eb4d45;
+  box-shadow: 3px 3px 3px #ccc;
 }
 
 .item-main{

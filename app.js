@@ -6,11 +6,11 @@ App({
 
     globalData: {
         currentPath:'',
-        isBackToBill: false,
+        isRefreshBills: false,
+        isRefreshCategories: false,
         isUpdateNickName: false,
         isUpdateAvatar: false,
         isUpload:false,
-        isLogin: true,
         bill: {},
         users: {
             tel: '18921483103',
@@ -113,4 +113,4 @@ App({
             }
         ]
     }
-})
+});

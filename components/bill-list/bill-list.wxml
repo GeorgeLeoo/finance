@@ -1,0 +1,11 @@
+<view wx:for="{{data}}" wx:key="{{item}}">
+    <view class='main-head'>
+        <text>{{item.date}} {{item.week}}</text>
+        <text>支出：{{item.expense}}¥ 收入：{{item.income}}¥</text>
+    </view>
+    <view class='main-body'>
+        <bill-list-item wx:for="{{item.list}}" wx:key="{{item}}" data-item="{{ item }}"
+                        data-id="{{item._id}}" data="{{ item }}" bindlongpress='handleDelete'
+                        bindtap='handleModify'></bill-list-item>
+    </view>
+</view>

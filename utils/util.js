@@ -33,12 +33,9 @@ const getMonth = () => {
  */
 const getDate = () => {
     const date = new Date();
-    const year = date.getFullYear()
-    const month = date.getMonth() + 1
-    const day = date.getDate()
-    const hour = date.getHours()
-    const minute = date.getMinutes()
-    const second = date.getSeconds()
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
     return [year, month, day].map(formatNumber).join('-')
 }
 
@@ -78,9 +75,35 @@ const randomColor = () => {
  * 电话 正则
  */
 function validateTel(tel) {
-    console.log(config.TEL_REGEXP.test(tel));
+    // console.log(config.TEL_REGEXP.test(tel));
     return config.TEL_REGEXP.test(tel);
 }
+
+/**
+ * 密码 正则
+ */
+function validatePwd(pwd) {
+    console.log(config.PWD_REGEXP.test(pwd));
+    return config.PWD_REGEXP.test(pwd);
+}
+
+/**
+ * 降序函数
+ * @param a
+ * @param b
+ * @returns {number}
+ */
+function desc(a, b) {
+    return b - a;
+}
+
+const formatDate = (time) => {
+    const date = new Date(time);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return [year, month, day].map(formatNumber).join('-')
+};
 
 module.exports = {
     formatTime: formatTime,
@@ -89,5 +112,8 @@ module.exports = {
     getWeek: getWeek,
     getYear,
     getMonth,
-    validateTel
-}
+    validateTel,
+    validatePwd,
+    desc,
+    formatDate
+};

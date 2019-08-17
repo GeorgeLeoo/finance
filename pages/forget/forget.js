@@ -1,10 +1,9 @@
 // pages/forget/forget.js
-var config = require('./../../config/config.js');
-var utils = require('./../../utils/util.js');
+const config = require('./../../config/config.js');
+const utils = require('./../../utils/util.js');
+const api = require('./../../http/api.js');
+
 Page({
-    /**
-     * 页面的初始数据
-     */
     data: {
         // 用户信息
         users: {
@@ -21,63 +20,12 @@ Page({
         isVerify: true
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function(options) {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
     onReady: function() {
         wx.setNavigationBarTitle({
             title: '修改密码',
         })
     },
 
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function() {
-
-    },
     /**
      * 监听手机号
      */
@@ -109,23 +57,19 @@ Page({
         type
     }) {
         // console.log(type)
-        var data = this.data;
-        var users = data.users;
-        var val = e.detail.value;
-        var flg_forgetbtn = true;
-        var flg_verifybtn;
-        var key = '';
+        let data = this.data;
+        const users = data.users;
+        const val = e.detail.value;
+        let flg_forgetbtn = true;
+        let flg_verifybtn;
+        let key = '';
 
         if (type === 'tel') {
             key = 'pwd';
             //如果手机号正确，则将“获取验证码”按钮设可以点击
             if (utils.validateTel(val)) {
                 flg_verifybtn = false;
-                if(data.verifyCode !== '' && users.pwd !== ''){
-                    flg_forgetbtn = false;
-                }else{
-                    flg_forgetbtn = true;
-                }
+                flg_forgetbtn = !(data.verifyCode !== '' && users.pwd !== '');
             } else {
                 flg_verifybtn = true;
                 flg_forgetbtn = true;
@@ -139,11 +83,7 @@ Page({
         }
         if (type === 'pwd') {
             key = 'tel';
-            if (val !== '') {
-                flg_forgetbtn = false;
-            } else {
-                flg_forgetbtn = true;
-            }
+            flg_forgetbtn = (val === '');
             users[type] = val;
             data = {
                 users,
@@ -155,11 +95,7 @@ Page({
             if(val === ''){
                 flg_forgetbtn = true;
             }else{
-                if (users.tel !== '' && users.pwd != '') {
-                    flg_forgetbtn = false;
-                } else {
-                    flg_forgetbtn = true;
-                }
+                flg_forgetbtn = !(users.tel !== '' && users.pwd != '');
             }
             
             data={
@@ -180,39 +116,34 @@ Page({
             })
             return;
         }
+        // if (!utils.validatePwd(this.data.users.pwd)) {
+        //     wx.showModal({
+        //         title: '提示',
+        //         content: '1.密码必须由字母、数字、特殊符号组成，区分大小\n2.特殊符号包含（,._ ~ ! @ # $ ^ & *）\n3.密码长度为8 - 20位',
+        //         showCancel: false
+        //     })
+        //     return;
+        // }
         wx.showLoading({
             title: '正在修改...',
         });
-        wx.request({
-            url: config.url.users.forgetpwd,
-            method: config.method.post,
-            data: this.data.users,
-            success: function(res) {
-                // console.log(res.data);
-
-                if (res.data.code === 0) {
-                    wx.navigateBack({
-                        delta: 1
-                    })
-                } else {
-                    wx.showToast({
-                        title: res.data.msg,
-                        icon: 'none',
-                        duration: 2000
-                    })
-                }
-
-            },
-            complete: function() {
-                wx.hideLoading();
-            },
-            fail: function(e) {
+        api.forgetPwd(this.data.users)
+            .then((res)=>{
                 wx.showToast({
-                    title: '密码修改失败',
+                    title: "修改密码成功",
+                    icon: 'none',
+                    duration: 2000
+                });
+                wx.navigateBack({
+                    delta: 1
+                })
+            })
+            .catch((errMsg)=>{
+                wx.showToast({
+                    title: errMsg,
                     icon: 'none',
                     duration: 2000
                 })
-            }
-        })
+            })
     }
 })

@@ -1,3 +1,4 @@
+<!-- 类别设置 -->
 <view class='container'>
   <view class='menu'>
     <view class='top-menu'>
@@ -12,7 +13,7 @@
   </view>
   <swiper class='swiper' current='{{current}}' bindchange='changeCurrent'>
     <swiper-item class='swiper-item'>
-      <view class='item' wx:for="{{catelogs_out}}" wx:key="{{index}}">
+      <view class='item' wx:for="{{categories_out}}" wx:key="{{index}}">
         <view class='item-main'>
           <image class='red' data-id='{{index}}' src='{{item.icon}}'></image>
           <text>{{item.text}}</text>
@@ -26,7 +27,7 @@
 
     </swiper-item>
     <swiper-item class='swiper-item'>
-      <view class='item' wx:for="{{catelogs_in}}" wx:key="{{index}}">
+      <view class='item' wx:for="{{categories_in}}" wx:key="{{index}}">
         <view class='item-main'>
          <image class='red' data-id='{{index}}' src='{{item.icon}}'></image>
           <text>{{item.text}}</text>

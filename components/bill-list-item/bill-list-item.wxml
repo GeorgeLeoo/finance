@@ -1,0 +1,13 @@
+<view class="main-body-item">
+    <view class='main-bi-l' data-id="{{data._id}}">
+        <image data-id="{{data._id}}" class="icon bg_{{data.type === 0 ? 'green': 'red'}}"
+               src='./../../images/main/{{data.type === 0 ? "zc_" + (data.iconSelected + 1) + ".svg" : "sr_" + (data.iconSelected + 1) + ".svg"}}'></image>
+        <view class='texts' data-id="{{data._id}}">
+            <text data-id="{{data._id}}">{{data.text}}</text>
+            <text data-id="{{data._id}}">{{data.notes}}</text>
+        </view>
+    </view>
+    <text data-id="{{data._id}}" class='{{data.type === 0 ? "green": "red"}}'>{{data.type === 0 ?
+        '-' : '+'}}{{data.money}}¥
+    </text>
+</view>

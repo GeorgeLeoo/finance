@@ -1,12 +1,11 @@
 // pages/bill/bill.js
-var utils = require('./../../utils/util.js');
-var config = require('./../../config/config.js');
-Page({
+const utils = require('./../../utils/util.js');
+const api = require('./../../http/api.js');
+let {currentPath, isRefreshBills} = getApp().globalData;
 
-    /**
-     * 页面的初始数据
-     */
+Page({
     data: {
+        currentPage: 0,
         money: {
             getMoney: 0,
             useMoney: 0,
@@ -18,89 +17,50 @@ Page({
             month: utils.getMonth()
         }
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function(options) {
-        wx.showLoading({
-            title: '数据努力加载中',
-        })
-        var route = this.route;
-        getApp().globalData.currentPath = './..' +route.substring(5,route.length);
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function() {
-        // wx.hideLoading();
+    onLoad: function (options) {
         wx.setNavigationBarTitle({
             title: '账单'
         });
-
+        wx.showLoading({
+            title: '数据努力加载中',
+        });
+        this.loadData(this);
+        const route = this.route;
+        // getApp().globalData.currentPath = './..' + route.substring(5, route.length);
+        currentPath = './..' + route.substring(5, route.length);
     },
+    onShow: function () {
 
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function() {
-        if (getApp().globalData.isBackToBill) {
+        if (getApp().globalData.isRefreshBills) {
             this.loadData(this);
-            getApp().globalData.isBackToBill = false;
+            getApp().globalData.isRefreshBills = false;
         }
-        if (getApp().globalData.isLogin) {
-            this.loadData(this);
-            getApp().globalData.isLogin = false;
-        }
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function() {
 
     },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function() {
-        var that = this;
+    onPullDownRefresh: function () {
+        const that = this;
         wx.startPullDownRefresh({
-            success: function() {
+            success: function () {
+                this.setData({
+                    currentPage: 0
+                });
                 that.loadData(that);
             },
-            complete: function() {
+            complete: function () {
                 wx.stopPullDownRefresh();
             }
         });
     },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function() {
-
+    refreshData() {
+        console.log('refreshData');
+        this.setData({
+            currentPage: this.data.currentPage + 1
+        });
+        this.loadData(this);
     },
     bindDateChange(e) {
-        // console.log()
-        var date = e.detail.value;
-        var arr = date.split('-');
+        const date = e.detail.value;
+        let arr = date.split('-');
         this.setData({
             date: {
                 year: arr[0],
@@ -109,170 +69,70 @@ Page({
         });
         this.loadData(this);
     },
-    loadData: function(that) {
-        that.setData({
+    formatData(data) {
+        // 最终的格式化后数据
+        let finalData = {},
+            finalList = [],
+            getMoney = 0,
+            useMoney = 0,
+            restMoney = 0,
+            {c_in, c_out} = getApp().globalData;
+
+        // 保存不重复的日期
+        let uniqueDate = new Set();
+        data.map(item => uniqueDate.add(new Date(item.date).getTime()));
+
+        // 对uniqueDate降序排序, 并保存到 uniqueDates 中
+        let uniqueDates = Array.from(uniqueDate).sort(utils.desc);
+        uniqueDates.map((item, index) => uniqueDates[index] = utils.formatDate(item));
+
+        // 初始化 finalList
+        uniqueDates.map(item => finalList.push({date: item, expense: 0, income: 0, list: []}));
+
+        data.map((item) => {
+            // 查询当前日期在uniqueDates的下标
+            const index = uniqueDates.indexOf(item.date);
+            // 计算总支出,总收入
+            item.type === 0 ? useMoney += item.money : getMoney += item.money;
+            // 计算某天的总支出,总收入
+            item.type === 0 ? finalList[index].expense += item.money : finalList[index].income += item.money;
+            finalList[index].week = item.getWeek;
+            // 根据 type 判断当前是支出还是收入,并将 text 设置到 finalList
+            let types = item.type === 1 ? c_in : c_out;
+            item.text = types[item.iconSelected].text;
+            // 根据index将数据添加对应date的list中
+            finalList[index].list.push(item);
+        });
+
+        finalData = {
+            list: finalList,
             money: {
-                getMoney: 0,
-                useMoney: 0,
-                restMoney: 0,
-            },
-            list: []
-        })
-        wx.request({
-            url: config.url.finance.bill,
-            data: {
-                tel: getApp().globalData.users.tel,
-                date: that.data.date.year + "-" + that.data.date.month
-            },
-            success: function(res) {
-                var data = res.data.data;
-                // console.log(data);
-
-                var getMoney = 0;
-                var useMoney = 0;
-                var restMoney = 0;
-                var arr = [];
-
-                for (var i = 0; i < data.length; i++) {
-                    var obj = {};
-                    obj.items = [];
-                    obj.getMoney = 0;
-                    obj.useMoney = 0;
-
-                    // data[i].bgcolor = utils.randomColor();
-
-                    if (data[i].type === 0) {
-                        useMoney += data[i].money;
-                        // console.log(data[i]);
-                        // console.log(getApp().globalData.c_out[data[i].iconSelected].text)
-                        data[i].text = getApp().globalData.c_out[data[i].iconSelected].text
-                    }
-                    if (data[i].type === 1) {
-                        getMoney += data[i].money;
-                        data[i].text = getApp().globalData.c_in[data[i].iconSelected].text
-                    }
-
-
-                    var flg = false;
-                    if (arr.length === 0) {
-                        obj.createAt = data[i].createAt;
-                        obj.date = data[i].date;
-                        obj.week = data[i].getWeek;
-                        if (data[i].type === 0) {
-                            obj.useMoney = data[i].money;
-                        }
-                        if (data[i].type === 1) {
-                            obj.getMoney = data[i].money;
-                        }
-                        obj.items.push(data[i]);
-                        arr.push(obj);
-                    } else {
-                        for (var j = 0; j < arr.length; j++) {
-                            if (arr[j].date === data[i].date) {
-                                if (data[i].type === 0) {
-                                    arr[j].useMoney += data[i].money;
-                                }
-                                if (data[i].type === 1) {
-                                    arr[j].getMoney += data[i].money;
-                                }
-                                // var array = [];
-                                // var items = arr[j].items;
-                                // console.log(items);
-                                // for (var i = 0; i < items.length; i++) {
-                                //   array[i].dateTime = (new Date(items[i].date)).getTime();
-                                // }
-                                // array.sort(function (a, b) {
-                                //   return b.dateTime - a.dateTime > 0;
-                                // });
-                                arr[j].items.push(data[i]);
-                                flg = true;
-                                break;
-                            }
-                        }
-                        if (!flg) {
-                            obj.createAt = data[i].createAt;
-                            obj.date = data[i].date;
-                            obj.week = data[i].getWeek;
-                            if (data[i].type === 0) {
-                                obj.useMoney = data[i].money;
-                            }
-                            if (data[i].type === 1) {
-                                obj.getMoney = data[i].money;
-                            }
-
-                            obj.items.push(data[i]);
-                            arr.push(obj);
-                        }
-                    }
-                }
-                restMoney = getMoney - useMoney;
-                for (var i = 0; i < arr.length; i++) {
-                    arr[i].dateTime = (new Date(arr[i].date)).getTime();
-                }
-                arr.sort(function(a, b) {
-                    return b.dateTime - a.dateTime > 0;
-                });
-
-                that.setData({
-                    money: {
-                        getMoney,
-                        useMoney,
-                        restMoney
-                    },
-                    list: arr
-                });
-                // console.log(that.data);
-                wx.hideLoading();
+                getMoney,
+                useMoney,
+                restMoney: getMoney - useMoney
             }
+        };
+
+        return finalData;
+    },
+    loadData: function (that) {
+        let currentPage = that.data.currentPage;
+        let {year, month} = that.data.date;
+        api.getBills({
+            tel: getApp().globalData.users.tel,
+            date: year + "-" + month,
+            currentPage
+        }).then((res) => {
+            let {list, money} = that.formatData(res);
+            this.setData({
+                list,
+                money
+            })
+        }).catch((errMsg) => {
+            console.log(errMsg);
         })
     },
-    handleDelete(e) {
-        var id = e.target.dataset.id;
-        // console.log(id);
-
-        var that = this;
-        wx.showModal({
-            title: '警告',
-            content: '您确定要删除此条记录',
-            success(res) {
-                if (res.confirm) {
-                    // console.log('用户点击确定')
-                    wx.showLoading({
-                        title: '',
-                    })
-                    that.del(that, id);
-                } else if (res.cancel) {
-                    // console.log('用户点击取消')
-                }
-            }
-        })
-    },
-    del(that, id) {
-        wx.request({
-            url: config.url.finance.del,
-            method: config.method.get,
-            data: {
-                _id: id
-            },
-            success: function(res) {
-                // console.log(res.data);
-                if (res.data.code === 0) {
-                    that.loadData(that);
-                    wx.showToast({
-                        title: '删除成功',
-                        duration: 1000
-                    })
-                }
-            },
-            complete: function() {
-                wx.hideLoading();
-            }
-        })
-    },
-    handleModify(e) {
-        // console.log(e.target.dataset);
-        wx.navigateTo({
-            url: './../modify/modify?id=' + e.target.dataset.id,
-        })
+    refresh() {
+        this.loadData(this);
     }
-})
+});

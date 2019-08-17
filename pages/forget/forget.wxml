@@ -1,11 +1,12 @@
+<!-- 忘记密码 -->
 <view class='container'>
   <form class='forget-form' method='post' action=''>
     <view class='forget-form-input-group'>
       <view class='forget-input-group'>
-        <input class='forget-input' placeholder='请输入手机号' type='number' value='{{users.tel}}' bindinput='watchTel'></input>
+        <input class='forget-input' placeholder='请输入手机号' type='text' value='{{users.tel}}' bindinput='watchTel'></input>
       </view>
       <view class='forget-input-group forget-input-vertify-wraper'>
-        <input class='forget-input forget-input-vertify' type='number' placeholder='请输入验证码' value='{{verifyCode}}' bindinput='watchVerifyCode'></input>
+        <input class='forget-input forget-input-vertify' type='text' placeholder='请输入验证码' value='{{verifyCode}}' bindinput='watchVerifyCode'></input>
         <button size='mini' disabled='{{flg_verifybtn}}' class='forget-btn forget-btn-vertify'>获取验证码</button>
       </view>
       <view class='forget-input-group'>
