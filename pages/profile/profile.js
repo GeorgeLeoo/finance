@@ -1,5 +1,5 @@
 // pages/profile/profile.js
-var config = require('./../../config/config.js');
+var config = require('../../config');
 const api = require('./../../http/api.js');
 
 var app = getApp();

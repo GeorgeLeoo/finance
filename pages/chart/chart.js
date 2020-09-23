@@ -1,6 +1,6 @@
 // pages/chart/chart.js
 const utils = require('./../../utils/util.js');
-const config = require('./../../config/config.js');
+const config = require('../../config');
 const api = require('./../../http/api.js');
 
 const wxCharts = require('./../../utils/wxcharts.js');

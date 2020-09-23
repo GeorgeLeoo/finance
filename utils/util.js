@@ -1,4 +1,4 @@
-var config = require('./../config/config.js');
+var config = require('../config');
 /**
  * 格式化日期
  */

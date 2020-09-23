@@ -17,7 +17,7 @@
             |-- util.js：工具类 
             |-- wxcharts.js：图表插件
         * images：资源图片
-        * config：配置文件
+        * index：配置文件
         * filter：过滤器
         * http：网络请求
             |-- http.js：对 wx.request 的封装

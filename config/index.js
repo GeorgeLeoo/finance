@@ -1,4 +1,4 @@
-let config = function () {
+let index = function () {
     let host = '192.168.1.7';// 图片服务器地址
     let uploadPort = '5000';//图片服务器端口
     return {
@@ -10,4 +10,11 @@ let config = function () {
     };
 }
 
-module.exports = config();
+class Config {}
+Config.API_HOST = ''
+Config.IMG_HOST = ''
+Config.APP_ID = ''
+Config.SECRET = ''
+Config.WHITE_LIST = []
+
+module.exports = Config
