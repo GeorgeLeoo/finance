@@ -1,8 +1,10 @@
 // pages/addition/addition.js
-const utils = require('../../Utils');
-const config = require('../../config');
+import Utils from '../../utils/index'
+import Config from '../../config/index'
+
 const api = require('./../../http/api.js');
 let {c_out, c_in, users} = getApp().globalData;
+
 Page({
 
     data: {
@@ -10,15 +12,15 @@ Page({
         showtimes: 0,
         isUpdate: false,
         data_out: {
-            date: utils.getDate(),
-            getWeek: utils.getWeek(),
+            date: Utils.getDate(),
+            getWeek: Utils.getWeek(),
             iconSelected: 0,
             notes: '',
             money: 0,
         },
         data_in: {
-            date: utils.getDate(),
-            getWeek: utils.getWeek(),
+            date: Utils.getDate(),
+            getWeek: Utils.getWeek(),
             iconSelected: 0,
             notes: '',
             money: 0,
@@ -112,13 +114,13 @@ Page({
         const data_in = this.data.data_in;
         if (this.data.current === 0) {
             data_out.date = e.detail.value;
-            data_out.getWeek = utils.getWeek(e.detail.value);
+            data_out.getWeek = Utils.getWeek(e.detail.value);
             this.setData({
                 data_out
             })
         } else {
             data_in.date = e.detail.value;
-            data_in.getWeek = utils.getWeek(e.detail.value);
+            data_in.getWeek = Utils.getWeek(e.detail.value);
             this.setData({
                 data_in
             })

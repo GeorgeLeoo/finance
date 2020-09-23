@@ -1,5 +1,6 @@
 // pages/bill/bill.js
-const utils = require('../../Utils');
+import Utils from '../../utils/index'
+import Config from '../../config/index'
 const api = require('./../../http/api.js');
 let {currentPath, isRefreshBills} = getApp().globalData;
 
@@ -13,8 +14,8 @@ Page({
         },
         list: [],
         date: {
-            year: utils.getYear(),
-            month: utils.getMonth()
+            year: Utils.getYear(),
+            month: Utils.getMonth()
         }
     },
     onLoad: function (options) {
@@ -83,8 +84,8 @@ Page({
         data.map(item => uniqueDate.add(new Date(item.date).getTime()));
 
         // 对uniqueDate降序排序, 并保存到 uniqueDates 中
-        let uniqueDates = Array.from(uniqueDate).sort(utils.desc);
-        uniqueDates.map((item, index) => uniqueDates[index] = utils.formatDate(item));
+        let uniqueDates = Array.from(uniqueDate).sort(Utils.desc);
+        uniqueDates.map((item, index) => uniqueDates[index] = Utils.formatDate(item));
 
         // 初始化 finalList
         uniqueDates.map(item => finalList.push({date: item, expense: 0, income: 0, list: []}));

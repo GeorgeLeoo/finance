@@ -1,9 +1,9 @@
 {
     "pages": [
-        
+
+        "pages/register/register",
         "pages/login/login",
         "pages/circle/circle",
-        "pages/register/register",
         "pages/forget/forget",
         "pages/profile/profile",
         "pages/bill/bill",
@@ -15,14 +15,14 @@
         "pages/mine/mine",
         "pages/about/about",
         "pages/advice/advice"
-        
+
     ],
     "window": {
         "backgroundTextStyle": "light",
         "backgroundColor": "#f0f0f0",
-        "navigationBarBackgroundColor": "#EB4D45",
-        "navigationBarTitleText": "家庭记账系统",
-        "navigationBarTextStyle": "white"
+        "navigationBarBackgroundColor": "#f8f8f8",
+        "navigationBarTitleText": "家庭记账",
+        "navigationBarTextStyle": "black"
     },
     "sitemapLocation": "sitemap.json",
     "tabBar": {

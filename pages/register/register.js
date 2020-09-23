@@ -1,136 +1,112 @@
 // pages/register/register.js
-const utils = require('../../Utils');
-const api = require('./../../http/api.js');
+import Utils from '../../utils/index'
+import { validatorForm } from '../../utils/validator'
+import { register } from '../../api/index'
 
 Page({
-
+    
     data: {
-        users: {
-            tel: '',
-            pwd: ''
+        user: {
+            tel: '18921483103',
+            pwd: '1234'
         },
-        verifyCode: '',
-        flg_regbtn: true,
+        verifyCode: '1234',
+        canRegister: false,
         flg_verifybtn: true,
-        isVerify: true
+        isVerify: true,
+        INPUT_TYPE_MAP: {
+            PHONE: 'PHONE',
+            PASSWORD: 'PASSWORD',
+            CODE: 'CODE',
+        }
     },
-
+    
     onLoad: function (options) {
-        wx.setNavigationBarTitle({
-            title: '新用户注册',
+        Utils.setTitle('新用户注册')
+    },
+    
+    /**
+     * 监听输入框
+     * @param detail
+     * @param target
+     */
+    handlerWatchInput ({ detail, target }) {
+        const value = detail.value
+        const inputType = target.dataset.type
+        const { PHONE, PASSWORD, CODE } = this.data.INPUT_TYPE_MAP
+        
+        const data = this.data
+        const verifyCode = this.data.verifyCode
+        const { tel, pwd } = data.user
+        
+        let canRegister = false
+        
+        let options = {}
+        
+        // 手机号类型
+        if (inputType === PHONE) {
+            canRegister = !!value && !!pwd && !!verifyCode
+            options.user = { tel: value, pwd }
+        }
+        
+        // 密码类型
+        if (inputType === PASSWORD) {
+            canRegister = !!tel && !!value && !!verifyCode
+            options.user = { tel, pwd: value }
+        }
+        
+        // 验证码类型
+        if (inputType === CODE) {
+            canRegister = !!tel && !!pwd && !!value
+            options.verifyCode = value
+        }
+        
+        if (canRegister !== data.canRegister) {
+            options = Object.assign(options, { canRegister })
+        }
+        
+        this.setData(options)
+    },
+    
+    handlerRegister () {
+        const { tel, pwd } = this.data.user
+        const verifyCode = this.data.verifyCode
+    
+        const rules = [
+            // { value: verifyCode, validator: Utils.validateCode },
+            { value: tel, validator: Utils.validateTel },
+            { value: pwd, validator: Utils.validatePwd },
+        ]
+    
+        const validator = validatorForm(rules)
+        console.log(validator)
+        if (!validator) {
+            return
+        }
+    
+        wx.showLoading({ title: '正在注册...' })
+    
+        register(this.data.user).then(data => {
+            console.log(data)
         })
-    },
-
-    watchTel: function (e) {
-        this.handleWatch({
-            e,
-            type: 'tel'
-        });
-    },
-    watchVerifyCode: function (e) {
-        this.handleWatch({
-            e,
-            type: 'code'
-        });
-    },
-    watchPwd: function (e) {
-        this.handleWatch({
-            e,
-            type: 'pwd'
-        });
-    },
-    handleWatch: function ({
-                               e,
-                               type
-                           }) {
-        // console.log(type)
-        let data = this.data;
-        const users = data.users;
-        const val = e.detail.value;
-        let flg_regbtn = true;
-        let flg_verifybtn;
-        let key = '';
-
-        if (type === 'tel') {
-            key = 'pwd';
-            //如果手机号正确，则将“获取验证码”按钮设可以点击
-            if (utils.validateTel(val)) {
-                flg_verifybtn = false;
-                flg_regbtn = !(data.verifyCode !== '' && users.pwd !== '');
-            } else {
-                flg_verifybtn = true;
-                flg_regbtn = true;
-            }
-            users[type] = val;
-            data = {
-                users,
-                flg_verifybtn,
-                flg_regbtn
-            };
-        }
-        if (type === 'pwd') {
-            key = 'tel';
-            flg_regbtn = (val === '');
-            users[type] = val;
-            data = {
-                users,
-                flg_regbtn
-            };
-        }
-
-        if (type === 'code') {
-            if (val === '') {
-                flg_regbtn = true;
-            } else {
-                flg_regbtn = !(users.tel !== '' && users.pwd !== '');
-            }
-
-            data = {
-                verifyCode: val,
-                flg_regbtn
-            }
-        }
-
-        this.setData(data);
-    },
-    handleRegister: function (e) {
-        if (!utils.validateTel(this.data.users.tel)) {
-            wx.showModal({
-                title: '提示',
-                content: '请输入正确的手机号',
-                showCancel: false
-            });
-            return;
-        }
-        // if (!Utils.validatePwd(this.data.users.pwd)) {
-        //     wx.showModal({
-        //         title: '提示',
-        //         content: '1.密码必须由字母、数字、特殊符号组成，区分大小\n2.特殊符号包含（,._ ~ ! @ # $ ^ & *）\n3.密码长度为8 - 20位',
-        //         showCancel: false
+        // api.register(this.data.users)
+        //     .then((res) => {
+        //         wx.showToast({
+        //             title: '注册成功',
+        //             icon: 'none',
+        //             duration: 2000
+        //         })
+        //         wx.navigateBack({
+        //             delta: 1
+        //         })
         //     })
-        //     return;
-        // }
-        wx.showLoading({
-            title: '正在注册...',
-        });
-        api.register(this.data.users)
-            .then((res) => {
-                wx.showToast({
-                    title: '注册成功',
-                    icon: 'none',
-                    duration: 2000
-                });
-                wx.navigateBack({
-                    delta: 1
-                });
-            })
-            .catch((errMsg) => {
-                wx.showToast({
-                    title: errMsg,
-                    icon: 'none',
-                    duration: 2000
-                })
-            })
+        //     .catch((errMsg) => {
+        //         wx.showToast({
+        //             title: errMsg,
+        //             icon: 'none',
+        //             duration: 2000
+        //         })
+        //     })
     },
-
+    
 })

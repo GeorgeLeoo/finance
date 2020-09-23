@@ -1,4 +1,4 @@
-import HttpRequest from '../lib/HttpRequest'
+import HttpRequest from '../lib/httpRequest'
 
 export const login = (body) => HttpRequest.request({
   url: '',

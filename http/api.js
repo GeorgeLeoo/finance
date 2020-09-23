@@ -1,4 +1,4 @@
-const {http, uploadFile} = require('../lib/HttpRequest/index.js');
+const {http, uploadFile} = require('../lib/httpRequest/index.js');
 const tokenStorage = wx.getStorageSync('token');
 
 const method = {

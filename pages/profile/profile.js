@@ -1,5 +1,5 @@
 // pages/profile/profile.js
-var config = require('../../config');
+import Config from '../../config/index'
 const api = require('./../../http/api.js');
 
 var app = getApp();

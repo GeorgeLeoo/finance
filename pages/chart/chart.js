@@ -1,9 +1,8 @@
 // pages/chart/chart.js
-const utils = require('../../Utils');
-const config = require('../../config');
+import Utils from '../../utils/index'
 const api = require('./../../http/api.js');
 
-const wxCharts = require('../../lib/WXCharts');
+const wxCharts = require('../../lib/wxCharts/index');
 const {users, c_out, c_in} = getApp().globalData;
 let lineChart = null;
 let pieChart = null;
@@ -11,8 +10,8 @@ Page({
     data: {
         current: 0,
         date: {
-            year: utils.getYear(),
-            month: utils.getMonth()
+            year: Utils.getYear(),
+            month: Utils.getMonth()
         },
         rankings: [],
         lines: []

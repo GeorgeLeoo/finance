@@ -1,5 +1,6 @@
 // pages/mine/mine.js
-var config = require('../../config');
+import Utils from '../../utils/index'
+import Config from '../../config/index'
 Page({
 
     /**

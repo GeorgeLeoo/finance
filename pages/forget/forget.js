@@ -1,6 +1,6 @@
 // pages/forget/forget.js
-const config = require('../../config');
-const utils = require('../../Utils');
+import Utils from '../../utils/index'
+import Config from '../../config/index'
 const api = require('./../../http/api.js');
 
 Page({
@@ -67,7 +67,7 @@ Page({
         if (type === 'tel') {
             key = 'pwd';
             //如果手机号正确，则将“获取验证码”按钮设可以点击
-            if (utils.validateTel(val)) {
+            if (Utils.validateTel(val)) {
                 flg_verifybtn = false;
                 flg_forgetbtn = !(data.verifyCode !== '' && users.pwd !== '');
             } else {
@@ -76,7 +76,7 @@ Page({
             }
             users[type] = val;
             data = {
-                users,  
+                users,
                 flg_verifybtn,
                 flg_forgetbtn
             };
@@ -108,7 +108,7 @@ Page({
     },
     // 忘记密码按钮处理
     handleForgetpwd: function() {
-        if (!utils.validateTel(this.data.users.tel)) {
+        if (!Utils.validateTel(this.data.users.tel)) {
             wx.showModal({
                 title: '提示',
                 content: '请输入正确的手机号',

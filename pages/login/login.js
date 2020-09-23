@@ -1,125 +1,118 @@
 // pages/login/login.js
-const config = require('../../config');
-const utils = require('../../Utils');
-const api = require('./../../http/api.js');
+import Utils from '../../utils/index'
+
+const api = require('./../../http/api.js')
 
 Page({
     data: {
-        flg_loginbtn: true,
-        users: {
+        canLogin: true,
+        user: {
             tel: '',
             pwd: ''
+        },
+        INPUT_TYPE_MAP: {
+            PHONE: 'PHONE',
+            PASSWORD: 'PASSWORD',
         }
     },
-
-    onLoad: function (options) {
-        wx.setNavigationBarTitle({
-            title: '家庭记账系统-登录',
-        })
-    },
-
-    /**
-     * 监听手机号输入框
-     */
-    watchTel: function (e) {
-        this.handleWatch({
-            e,
-            type: 'tel'
-        });
+    
+    onLoad () {
+        Utils.setTitle('家庭记账-登录')
     },
     /**
-     * 监听密码输入框
+     * 监听输入框
+     * @param detail
+     * @param target
      */
-    watchPwd: function (e) {
-        this.handleWatch({
-            e,
-            type: 'pwd'
-        });
-    },
-    /**
-     * 公共监听处理input
-     */
-    handleWatch: function ({e, type}) {
-        const data = this.data;
-        const users = data.users;
-        const val = e.detail.value;
-        let flg_loginbtn = true;
-        let key = '';
-
-        if (type === 'pwd') {
-            key = 'tel';
+    handlerWatchInput ({ detail, target }) {
+        const value = detail.value
+        const inputType = target.dataset.type
+        const { PHONE, PASSWORD } = this.data.INPUT_TYPE_MAP
+        
+        const data = this.data
+        const { tel, pwd } = data.user
+        
+        let canLogin = false
+        
+        let options = {}
+        
+        // 手机号类型
+        if (inputType === PHONE) {
+            canLogin = !!value && !!pwd
+            options.user = { tel: value, pwd }
         }
-        if (type === 'tel') {
-            key = 'pwd';
+        
+        // 密码类型
+        if (inputType === PASSWORD) {
+            canLogin = !!tel && !!value
+            options.user = { tel, pwd: value }
         }
-
-        users[type] = val;
-
-        (data.users[key] !== '' && val !== '') ? (flg_loginbtn = false) : (flg_loginbtn = true);
-
-        this.setData({
-            users,
-            flg_loginbtn
-        });
+        
+        if (canLogin !== data.canLogin) {
+            options = Object.assign(options, { canLogin })
+        }
+        
+        this.setData(options)
     },
+    
     _login: function (data) {
         api.login(data)
             .then((res) => {
-                let user = res[0];
-                let avatarUrls = user.avatarUrl.split("");
-                avatarUrls.splice(11, 13);
-                let avatarUrl = avatarUrls.join("");
-                user.avatarUrl = avatarUrl;
-                getApp().globalData.users.avatarUrl = avatarUrl;
-                getApp().globalData.users = user;
-                getApp().globalData.isLogin = true;
-
+                let user = res[0]
+                let avatarUrls = user.avatarUrl.split('')
+                avatarUrls.splice(11, 13)
+                let avatarUrl = avatarUrls.join('')
+                user.avatarUrl = avatarUrl
+                getApp().globalData.users.avatarUrl = avatarUrl
+                getApp().globalData.users = user
+                getApp().globalData.isLogin = true
+                
                 wx.switchTab({
                     url: './../bill/bill',
                 })
             })
             .catch((errMsg) => {
-                console.log(errMsg);
+                console.log(errMsg)
                 wx.showToast({
                     title: errMsg,
                     icon: 'none',
                     duration: 2000
                 })
-            });
+            })
     },
     /**
      * 登录
      */
     handleLogin: function (e) {
         // 手机号验证
-        if (!utils.validateTel(this.data.users.tel)) {
+        if (!Utils.validateTel(this.data.users.tel)) {
             wx.showModal({
                 title: '提示',
                 content: '请输入正确的手机号',
                 showCancel: false
-            });
-            return;
+            })
+            return
         }
         wx.showLoading({
             title: '正在登录...',
-        });
+        })
         // 获取 token
         api.getToken(this.data.users.tel)
             .then((res) => {
                 // 存储 token 信息
-                wx.setStorageSync('token', res);
+                wx.setStorageSync('token', res)
                 // 登录
                 this._login(this.data.users)
             })
             .catch((errMsg) => {
                 wx.showToast({
                     title: 'token失效'
-                });
-                console.log(errMsg);
-            });
+                })
+                console.log(errMsg)
+            })
     },
-
-    handleWXLogin: function () {
+    
+    handleWXLogin () {
         wx.login({
             success: (res) => {
                 // console.log(res);
@@ -132,11 +125,11 @@ Page({
                         },
                         success: (res) => {
                             // console.log(res.data);
-                            wx.setStorageSync('user', res.data.data);
+                            wx.setStorageSync('user', res.data.data)
                         }
                     })
                 }
             }
         })
     }
-});
+})
