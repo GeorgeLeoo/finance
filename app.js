@@ -1,5 +1,5 @@
 //app.js
-var utils = require('./utils/util.js');
+var utils = require('./Utils');
 var config = require('./config');
 App({
     onLaunch: function() {},

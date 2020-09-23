@@ -1,6 +1,6 @@
 // pages/login/login.js
 const config = require('../../config');
-const utils = require('./../../utils/util.js');
+const utils = require('../../Utils');
 const api = require('./../../http/api.js');
 
 Page({

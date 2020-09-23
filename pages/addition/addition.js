@@ -1,5 +1,5 @@
 // pages/addition/addition.js
-const utils = require('./../../utils/util.js');
+const utils = require('../../Utils');
 const config = require('../../config');
 const api = require('./../../http/api.js');
 let {c_out, c_in, users} = getApp().globalData;

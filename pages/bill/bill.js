@@ -1,5 +1,5 @@
 // pages/bill/bill.js
-const utils = require('./../../utils/util.js');
+const utils = require('../../Utils');
 const api = require('./../../http/api.js');
 let {currentPath, isRefreshBills} = getApp().globalData;
 

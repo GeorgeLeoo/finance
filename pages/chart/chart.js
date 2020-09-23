@@ -1,9 +1,9 @@
 // pages/chart/chart.js
-const utils = require('./../../utils/util.js');
+const utils = require('../../Utils');
 const config = require('../../config');
 const api = require('./../../http/api.js');
 
-const wxCharts = require('./../../utils/wxcharts.js');
+const wxCharts = require('../../lib/WXCharts');
 const {users, c_out, c_in} = getApp().globalData;
 let lineChart = null;
 let pieChart = null;

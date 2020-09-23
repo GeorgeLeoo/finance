@@ -11,10 +11,11 @@ let index = function () {
 }
 
 class Config {}
-Config.API_HOST = ''
+Config.API_HOST = 'http://31231:3333'
 Config.IMG_HOST = ''
 Config.APP_ID = ''
 Config.SECRET = ''
 Config.WHITE_LIST = []
+Config.TOKEN_STORAGE_KEY = 'FINANCE_KEY'
 
 module.exports = Config

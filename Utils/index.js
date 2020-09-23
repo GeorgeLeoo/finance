@@ -1,4 +1,6 @@
-var config = require('../config');
+import Config from '../config'
+
+// var config = require('../config');
 /**
  * 格式化日期
  */
@@ -105,15 +107,30 @@ const formatDate = (time) => {
     return [year, month, day].map(formatNumber).join('-')
 };
 
-module.exports = {
-    formatTime: formatTime,
-    getDate: getDate,
-    randomColor: randomColor,
-    getWeek: getWeek,
-    getYear,
-    getMonth,
-    validateTel,
-    validatePwd,
-    desc,
-    formatDate
-};
+class Utils {}
+
+Utils.formatTime = formatTime
+Utils.getDate = getDate
+Utils.randomColor = randomColor
+Utils.getWeek = getWeek
+Utils.getYear = getYear
+Utils.getMonth = getMonth
+Utils.validateTel = validateTel
+Utils.validatePwd = validatePwd
+Utils.desc = desc
+Utils.formatDate = formatDate
+
+export default Utils
+
+// module.exports = {
+//     formatTime: formatTime,
+//     getDate: getDate,
+//     randomColor: randomColor,
+//     getWeek: getWeek,
+//     getYear,
+//     getMonth,
+//     validateTel,
+//     validatePwd,
+//     desc,
+//     formatDate
+// };

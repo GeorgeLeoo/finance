@@ -1,6 +1,6 @@
 // pages/forget/forget.js
 const config = require('../../config');
-const utils = require('./../../utils/util.js');
+const utils = require('../../Utils');
 const api = require('./../../http/api.js');
 
 Page({
@@ -116,7 +116,7 @@ Page({
             })
             return;
         }
-        // if (!utils.validatePwd(this.data.users.pwd)) {
+        // if (!Utils.validatePwd(this.data.users.pwd)) {
         //     wx.showModal({
         //         title: '提示',
         //         content: '1.密码必须由字母、数字、特殊符号组成，区分大小\n2.特殊符号包含（,._ ~ ! @ # $ ^ & *）\n3.密码长度为8 - 20位',
