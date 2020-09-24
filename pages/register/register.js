@@ -17,7 +17,6 @@ const TITLE_MAP = {
 }
 
 Page({
-
     data: {
         user: {
             tel: '18921483103',
@@ -41,8 +40,7 @@ Page({
         quickTip: ''
     },
 
-    onLoad: function (options) {
-        const {pageType} = options
+    onLoad({pageType}) {
         this.pageType = pageType
 
         const {title, submitButtonText, quickTip} = TITLE_MAP[pageType]
@@ -60,11 +58,11 @@ Page({
     handlerWatchInput({detail, target}) {
         const value = detail.value
         const inputType = target.dataset.type
-        const {PHONE, PASSWORD, CODE} = this.data.INPUT_TYPE_MAP
 
         const data = this.data
-        const verifyCode = this.data.verifyCode
+        const {PHONE, PASSWORD, CODE} = data.INPUT_TYPE_MAP
         const {tel, pwd} = data.user
+        const verifyCode = data.verifyCode
 
         let canRegister = false
 
@@ -128,7 +126,7 @@ Page({
      * @private
      */
     _handlerRegister() {
-        wx.showLoading({ title: '正在注册...' })
+        wx.showLoading({title: '正在注册...'})
 
         register(this.data.user).then(data => {
             console.log(data)
@@ -140,7 +138,7 @@ Page({
      * @private
      */
     _handlerForgetPwd() {
-        wx.showLoading({ title: '正在找回...' })
+        wx.showLoading({title: '正在找回...'})
 
         forgetPwd(this.data.user).then(data => {
             console.log(data)

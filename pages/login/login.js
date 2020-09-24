@@ -15,8 +15,8 @@ Page({
             PASSWORD: 'PASSWORD',
         }
     },
-    
-    onLoad () {
+
+    onLoad() {
         Utils.setTitle('家庭记账-登录')
     },
     /**
@@ -24,38 +24,39 @@ Page({
      * @param detail
      * @param target
      */
-    handlerWatchInput ({ detail, target }) {
+    handlerWatchInput({detail, target}) {
         const value = detail.value
         const inputType = target.dataset.type
-        const { PHONE, PASSWORD } = this.data.INPUT_TYPE_MAP
-        
+
         const data = this.data
-        const { tel, pwd } = data.user
-        
+        const {PHONE, PASSWORD} = data.INPUT_TYPE_MAP
+        const {tel, pwd} = data.user
+
         let canLogin = false
-        
+
         let options = {}
-        
+
         // 手机号类型
         if (inputType === PHONE) {
             canLogin = !!value && !!pwd
-            options.user = { tel: value, pwd }
+            options.user = {tel: value, pwd}
         }
-        
+
         // 密码类型
         if (inputType === PASSWORD) {
             canLogin = !!tel && !!value
-            options.user = { tel, pwd: value }
+            options.user = {tel, pwd: value}
         }
-        
+
+        // 若 canLogin 改变了，则添加 到 options
         if (canLogin !== data.canLogin) {
-            options = Object.assign(options, { canLogin })
+            options = Object.assign(options, {canLogin})
         }
-        
+
         this.setData(options)
     },
-    
-    _login: function (data) {
+
+    _login(data) {
         api.login(data)
             .then((res) => {
                 let user = res[0]
@@ -66,7 +67,7 @@ Page({
                 getApp().globalData.users.avatarUrl = avatarUrl
                 getApp().globalData.users = user
                 getApp().globalData.isLogin = true
-                
+
                 wx.switchTab({
                     url: './../bill/bill',
                 })
@@ -83,7 +84,7 @@ Page({
     /**
      * 登录
      */
-    handleLogin: function (e) {
+    handleLogin() {
         // 手机号验证
         if (!Utils.validateTel(this.data.users.tel)) {
             wx.showModal({
@@ -111,8 +112,8 @@ Page({
                 console.log(errMsg)
             })
     },
-    
-    handleWXLogin () {
+
+    handleWXLogin() {
         wx.login({
             success: (res) => {
                 // console.log(res);
