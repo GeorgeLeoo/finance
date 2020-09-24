@@ -1,3 +1,5 @@
+import mineMenu from "./mineMenu";
+
 let index = function () {
     let host = '192.168.1.7';// 图片服务器地址
     let uploadPort = '5000';//图片服务器端口
@@ -17,5 +19,6 @@ Config.APP_ID = ''
 Config.SECRET = ''
 Config.WHITE_LIST = []
 Config.TOKEN_STORAGE_KEY = 'FINANCE_KEY'
+Config.MINE_MENUS = mineMenu
 
 export default Config

@@ -4,26 +4,11 @@
     <view class='search'>
         <view class='search-inner'>
             <image class='search-icon' src='./../../images/search.svg'></image>
-            <input class='search-input' placeholder='请输入备注' value='{{searchInput}}' confirm-type='search'
-                   bindconfirm='handleSearch' bindinput='watchSearchInput'></input>
-            <block wx:if='{{searchInput}}'>
-                <image class='search-icon' src='./../../images/close.svg' bindtap='handleDel'></image>
+            <input class='search-input' placeholder='请输入备注' value='{{searchValue}}' confirm-type='search'
+                   bindconfirm='handleSearch'></input>
+            <block wx:if='{{searchValue}}'>
+                <image class='search-icon' src='./../../images/close.svg' bindtap='handleClearSearchValue'></image>
             </block>
         </view>
-    </view>
-    <!-- 列表 -->
-    <view class='list'>
-        <view wx-if="{{ lists.length === 0 }}">没有数据</view>
-        <block wx:for='{{lists}}' wx:key='{{index}}'>
-            <view class='item' data-id='{{item_id}}'  data-index="{{ index }}">
-                <!-- item top -->
-                <view class='item-top' data-id="{{item._id}}">
-                    <text data-id="{{item._id}}">{{item.date}} {{item.getWeek}} {{item.type === 0 ? '支出' : '收入'}}</text>
-                </view>
-                <bill-list-item data-item="{{ item }}"
-                                data-id="{{item._id}}" data="{{ item }}" bindlongpress='handleDelete'
-                                bindtap='handleModify'></bill-list-item>
-            </view>
-        </block>
     </view>
 </view>

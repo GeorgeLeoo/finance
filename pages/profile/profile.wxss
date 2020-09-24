@@ -24,11 +24,13 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 0;
+  height: 72px;
 }
 
 .nickname {
   /* padding: 20px; */
-  line-height: 40px;
+  line-height: 72px;
+  height: 72px;
 }
 
 .item-avater {

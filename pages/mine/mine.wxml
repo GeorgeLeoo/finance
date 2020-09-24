@@ -8,13 +8,9 @@
     <text class='tag'>Hi!, 你终于来了～</text>
   </view>
   <scroll-view class='list' scroll-y>
-    <navigator wx:for="{{mines}}" wx:key="{{item.text}}" class='item {{item.class}}' url='{{item.url}}'>
+    <navigator wx:for="{{mines}}" wx:key="{{item.id}}" class='item {{item.class}}' data-url="{{item.url}}" data-type="{{item.type}}" bindtap='handlerMineMenuClick'>
       <image class='mine-item-icon' src='{{item.icon}}'></image>
       <text class='mine-item-text'>{{item.text}}</text>
-    </navigator>
-    <navigator class='item bottom10' bindtap='handleLogout'>
-      <image class='mine-item-icon' src='./../../images/mine/setting_logout.svg'></image>
-      <text class='mine-item-text'>退出账号</text>
     </navigator>
   </scroll-view>
 </view>

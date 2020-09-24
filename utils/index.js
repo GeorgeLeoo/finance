@@ -1,7 +1,7 @@
 /**
  * 格式化日期
  */
-import { PWD_REGEXP, TEL_REGEXP } from 'regexp'
+import {PWD_REGEXP, TEL_REGEXP} from 'regexp'
 
 const formatTime = date => {
     const year = date.getFullYear()
@@ -10,7 +10,7 @@ const formatTime = date => {
     const hour = date.getHours()
     const minute = date.getMinutes()
     const second = date.getSeconds()
-    
+
     return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 const formatNumber = n => {
@@ -75,7 +75,7 @@ const randomColor = () => {
 /**
  * 电话 正则
  */
-function validateTel (tel) {
+function validateTel(tel) {
     if (!TEL_REGEXP.test(tel)) {
         return '手机号格式不正确'
     }
@@ -84,7 +84,7 @@ function validateTel (tel) {
 /**
  * 密码 正则
  */
-function validatePwd (pwd) {
+function validatePwd(pwd) {
     // if (!TEL_REGEXP.test(pwd)) {
     //     return '密码格式不正确'
     // }
@@ -93,7 +93,7 @@ function validatePwd (pwd) {
     }
 }
 
-function validateCode (code) {
+function validateCode(code) {
     // if (!TEL_REGEXP.test(pwd)) {
     //     return '密码格式不正确'
     // }
@@ -108,7 +108,7 @@ function validateCode (code) {
  * @param b
  * @returns {number}
  */
-function desc (a, b) {
+function desc(a, b) {
     return b - a
 }
 
@@ -121,10 +121,25 @@ const formatDate = (time) => {
 }
 
 const setTitle = (title) => {
-    wx.setNavigationBarTitle({ title })
+    wx.setNavigationBarTitle({title})
 }
 
-class Utils {}
+const setTheme = (isPrimary) => {
+    const NAV_BAR_MAP = {
+        RED: {
+            backgroundColor: '#EB4D45',
+            frontColor: '#ffffff'
+        },
+        WHITE: {
+            backgroundColor: '#f8f8f8',
+            frontColor: '#333333'
+        },
+    }
+    wx.setNavigationBarColor(NAV_BAR_MAP[isPrimary ? 'RED' : 'WHITE'])
+}
+
+class Utils {
+}
 
 Utils.formatTime = formatTime
 Utils.getDate = getDate
@@ -138,6 +153,7 @@ Utils.validateCode = validateCode
 Utils.desc = desc
 Utils.formatDate = formatDate
 Utils.setTitle = setTitle
+Utils.setTheme = setTheme
 
 export default Utils
 

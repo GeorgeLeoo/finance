@@ -25,13 +25,13 @@
             </view>
         </view>
         <view class='register-btn-wrapper'>
-            <button class='register-btn' disabled="{{!canRegister}}" bindtap='handlerRegister'>注册</button>
+            <button class='register-btn' disabled="{{!canRegister}}" bindtap='handlerSubmit'>{{ submitButtonText }}</button>
         </view>
         <view class='register-bot'>
-          <navigator hover-class="none" url='./../login/login'><text>已有账号，去登录</text></navigator>
+          <navigator hover-class="none" open-type="navigateBack"><text>{{ quickTip }}</text></navigator>
         </view>
     </form>
-    <view class='foot'>
+    <view wx:if="{{pageType === PAGE_TYPE_MAP.PWD}}" class='foot'>
       <view>
         <text class='other'>其它注册方式</text>
       </view>

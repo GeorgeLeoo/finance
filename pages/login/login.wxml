@@ -22,10 +22,13 @@
             <button class='login-btn' disabled='{{!canLogin}}' bindtap='handleLogin'>登录</button>
         </view>
         <view class='login-bot'>
-            <navigator hover-class="none" url='./../forget/forget'>
+<!--            <navigator hover-class="none" url='./../forget/forget'>-->
+<!--                <text>忘记密码</text>-->
+<!--            </navigator>-->
+            <navigator hover-class="none" url='./../register/register?pageType=PWD'>
                 <text>忘记密码</text>
             </navigator>
-            <navigator hover-class="none" url='./../register/register'>
+            <navigator hover-class="none" url='./../register/register?pageType=REG'>
                 <text>新用户注册</text>
             </navigator>
         </view>

@@ -1,0 +1,25 @@
+<!-- 搜索 -->
+<view class="container">
+    <!-- 搜索 -->
+    <view class='search'>
+        <view class='search-inner' bindtap="handleToBack">
+            <image class='search-icon' src='./../../images/search.svg'></image>
+            <text class='search-input'>{{searchValue}}</text>
+        </view>
+    </view>
+    <!-- 列表 -->
+    <view class='list'>
+        <view wx-if="{{ lists.length === 0 }}">没有数据</view>
+        <block wx:for='{{lists}}' wx:key='{{index}}'>
+            <view class='item' data-id='{{item_id}}'  data-index="{{ index }}">
+                <!-- item top -->
+                <view class='item-top' data-id="{{item._id}}">
+                    <text data-id="{{item._id}}">{{item.date}} {{item.getWeek}} {{item.type === 0 ? '支出' : '收入'}}</text>
+                </view>
+                <bill-list-item data-item="{{ item }}"
+                                data-id="{{item._id}}" data="{{ item }}" bindlongpress='handleDeleteBill'
+                                bindtap='handleModify'></bill-list-item>
+            </view>
+        </block>
+    </view>
+</view>

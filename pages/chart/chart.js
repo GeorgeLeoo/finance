@@ -17,18 +17,14 @@ Page({
         lines: []
     },
     onLoad: function (options) {
-        wx.showLoading({
-            title: '',
-        });
+        Utils.setTitle('图表')
+        Utils.setTheme(true)
         let route = this.route;
         getApp().globalData.currentPath = './..' + route.substring(5, route.length);
         this.loadData(this);
 
     },
     onReady: function () {
-        wx.setNavigationBarTitle({
-            title: '图表'
-        });
         wx.hideLoading();
     },
     bindDateChange(e) {

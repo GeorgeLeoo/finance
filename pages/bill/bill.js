@@ -19,9 +19,8 @@ Page({
         }
     },
     onLoad: function (options) {
-        wx.setNavigationBarTitle({
-            title: '账单'
-        });
+        Utils.setTitle('账单')
+        Utils.setTheme(true)
         wx.showLoading({
             title: '数据努力加载中',
         });

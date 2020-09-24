@@ -1,16 +1,17 @@
 // pages/profile/profile.js
 import Config from '../../config/index'
+import Utils from "../../utils/index";
 const api = require('./../../http/api.js');
 
 var app = getApp();
 Page({
-
     data: {
         avatarurl: './../../images/avatar.png',
-        nickname: 'djnbsj',
+        nickname: '',
         isEdit: false
     },
     onLoad: function (options) {
+        Utils.setTitle('个人信息')
         // console.log(app);
         var avatarurl = "";
         if (getApp().globalData.isUpload) {
@@ -25,10 +26,6 @@ Page({
         });
     },
     onShow: function () {
-        wx.setNavigationBarTitle({
-            title: '个人信息',
-        })
-        // console.log('show');
         if (getApp().globalData.users.isUpload) {
             var avatarurl = "";
             if (getApp().globalData.isUpload) {

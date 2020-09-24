@@ -1,5 +1,7 @@
 // pages/about/about.js
 
+import Utils from "../../utils/index";
+
 Page({
 
   /**
@@ -20,9 +22,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    wx.setNavigationBarTitle({
-      title: '关于',
-    })
+    Utils.setTitle('关于我们')
   },
 
   /**
