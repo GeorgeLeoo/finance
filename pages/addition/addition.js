@@ -1,6 +1,6 @@
 // pages/addition/addition.js
 import Utils from '../../utils/index'
-import Config from '../../config/index'
+import Config from '../../config/config'
 
 const api = require('./../../http/api.js');
 let {c_out, c_in, users} = getApp().globalData;

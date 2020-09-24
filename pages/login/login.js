@@ -1,5 +1,9 @@
 // pages/login/login.js
 import Utils from '../../utils/index'
+import {validatorForm} from "../../utils/validator";
+import Jex from "../../lib/jex/index";
+import Config from "../../config/config";
+import {logo, wechat} from '../../icon/icon'
 
 const api = require('./../../http/api.js')
 
@@ -7,13 +11,15 @@ Page({
     data: {
         canLogin: true,
         user: {
-            tel: '',
-            pwd: ''
+            tel: '18921483103',
+            pwd: '1234'
         },
         INPUT_TYPE_MAP: {
             PHONE: 'PHONE',
             PASSWORD: 'PASSWORD',
-        }
+        },
+        logo,
+        wechat
     },
 
     onLoad() {
@@ -85,32 +91,31 @@ Page({
      * 登录
      */
     handleLogin() {
-        // 手机号验证
-        if (!Utils.validateTel(this.data.users.tel)) {
-            wx.showModal({
-                title: '提示',
-                content: '请输入正确的手机号',
-                showCancel: false
-            })
+        const {tel, pwd} = this.data.user
+
+        const rules = [
+            {value: tel, validator: Utils.validateTel},
+            {value: pwd, validator: Utils.validatePwd},
+        ]
+
+        const validator = validatorForm(rules)
+        if (!validator) {
             return
         }
-        wx.showLoading({
-            title: '正在登录...',
-        })
-        // 获取 token
-        api.getToken(this.data.users.tel)
-            .then((res) => {
-                // 存储 token 信息
-                wx.setStorageSync('token', res)
-                // 登录
-                this._login(this.data.users)
-            })
-            .catch((errMsg) => {
-                wx.showToast({
-                    title: 'token失效'
+
+        wx.showLoading({title: '正在登录...',})
+
+        Jex.User().login(tel, pwd).then((data) => {
+            wx.showToast({ title: '登陆成功', duration: 1000 })
+
+            wx.setStorageSync(Config.TOKEN_STORAGE_KEY, data)
+
+            setTimeout(() => {
+                wx.switchTab({
+                    url: './../bill/bill',
                 })
-                console.log(errMsg)
-            })
+            }, 500)
+        })
     },
 
     handleWXLogin() {

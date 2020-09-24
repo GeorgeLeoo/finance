@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "logo": "./../../components/logo/logo",
+    "login-reg-footer": "./../../components/login-reg-footer/login-reg-footer"
+  }
 }

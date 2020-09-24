@@ -1,6 +1,6 @@
 // pages/forget/forget.js
 import Utils from '../../utils/index'
-import Config from '../../config/index'
+import Config from '../../config/config'
 const api = require('./../../http/api.js');
 
 Page({

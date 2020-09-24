@@ -1,5 +1,7 @@
 <!-- 我的 -->
 <view class='container'>
+  <wxs module="filters" src="./../../filter/filter.wxs"></wxs>
+
   <view class='head'>
     <navigator hover-class="none" url='../profile/profile'>
       <image class='avatar' src='{{avatar}}'></image>

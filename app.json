@@ -1,10 +1,10 @@
 {
     "pages": [
 
-        "pages/search/search",
-        "pages/mine/mine",
         "pages/login/login",
         "pages/register/register",
+        "pages/search/search",
+        "pages/mine/mine",
         "pages/circle/circle",
         "pages/forget/forget",
         "pages/profile/profile",

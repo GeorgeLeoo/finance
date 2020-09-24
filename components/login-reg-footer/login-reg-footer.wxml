@@ -1,0 +1,8 @@
+<view class='foot'>
+    <view>
+        <text class='other'>{{hint}}</text>
+    </view>
+    <view class='other-btns'>
+        <image src='{{wechat}}' bindtap='handleWXSubmit'></image>
+    </view>
+</view>

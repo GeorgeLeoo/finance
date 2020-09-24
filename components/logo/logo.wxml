@@ -1,0 +1,8 @@
+<view class='head'>
+    <view>
+        <image class='logo' src='{{logo}}'></image>
+    </view>
+    <view>
+        <text class='app-name'>家庭记账</text>
+    </view>
+</view>

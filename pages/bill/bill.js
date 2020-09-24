@@ -1,6 +1,6 @@
 // pages/bill/bill.js
 import Utils from '../../utils/index'
-import Config from '../../config/index'
+import Config from '../../config/config'
 const api = require('./../../http/api.js');
 let {currentPath, isRefreshBills} = getApp().globalData;
 
@@ -21,10 +21,10 @@ Page({
     onLoad: function (options) {
         Utils.setTitle('账单')
         Utils.setTheme(true)
-        wx.showLoading({
-            title: '数据努力加载中',
-        });
-        this.loadData(this);
+        // wx.showLoading({
+        //     title: '数据努力加载中',
+        // });
+        // this.loadData(this);
         const route = this.route;
         // getApp().globalData.currentPath = './..' + route.substring(5, route.length);
         currentPath = './..' + route.substring(5, route.length);

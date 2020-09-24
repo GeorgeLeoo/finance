@@ -1,5 +1,5 @@
 // pages/profile/profile.js
-import Config from '../../config/index'
+import Config from '../../config/config'
 import Utils from "../../utils/index";
 const api = require('./../../http/api.js');
 

@@ -1,6 +1,10 @@
+
 var filters = {
     toFix: function (value) {
         return value.toFixed(2)//此处2为保留两位小数
+    },
+    image: function (value) {
+        // return Config.IMG_HOST + value
     }
 }
 module.exports = {

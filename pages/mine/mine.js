@@ -1,6 +1,7 @@
 // pages/mine/mine.js
 import Utils from '../../utils/index'
-import Config from '../../config/index'
+import Config from '../../config/config'
+import Jex from "../../lib/jex/index";
 
 Page({
 
@@ -78,7 +79,11 @@ Page({
             title: '提示',
             content: '您确定要退出当前账号？',
             success: ({confirm}) => {
-                confirm && wx.redirectTo({url})
+                if (confirm) {
+                    Jex.User().logout().then(() => {
+                        wx.redirectTo({url})
+                    })
+                }
             }
         })
     }

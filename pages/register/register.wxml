@@ -1,13 +1,6 @@
 <!-- 注册 -->
 <view class='container'>
-    <view class='head'>
-        <view>
-            <image class='logo' src='./../../images/logo.png'></image>
-        </view>
-        <view>
-            <text class='app-name'>家庭记账</text>
-        </view>
-    </view>
+    <logo></logo>
     <form class='register-form' method='post' action=''>
         <view class='register-form-input-group'>
             <view class='register-input-group'>
@@ -21,7 +14,7 @@
             <view class='register-input-group register-input-vertify-wraper'>
                 <input class='register-input register-input-vertify' data-type="{{INPUT_TYPE_MAP.CODE}}" type='number' placeholder='请输入验证码'
                        value='{{verifyCode}}' bindinput='handlerWatchInput'></input>
-                <image class='egister-btn register-btn-vertify' src='./../../images/logo.png'></image>
+                <image class='egister-btn register-btn-vertify' src='{{logo}}'></image>
             </view>
         </view>
         <view class='register-btn-wrapper'>
@@ -31,12 +24,5 @@
           <navigator hover-class="none" open-type="navigateBack"><text>{{ quickTip }}</text></navigator>
         </view>
     </form>
-    <view wx:if="{{pageType === PAGE_TYPE_MAP.PWD}}" class='foot'>
-      <view>
-        <text class='other'>其它注册方式</text>
-      </view>
-      <view class='other-btns'>
-        <image src='./../../images/wechat.svg'></image>
-      </view>
-    </view>
+    <login-reg-footer wx:if="{{pageType === PAGE_TYPE_MAP.REG}}" hint="其它登录方式"></login-reg-footer>
 </view>

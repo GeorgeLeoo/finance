@@ -2,6 +2,8 @@
 import Utils from '../../utils/index'
 import {validatorForm} from '../../utils/validator'
 import {forgetPwd, register} from '../../api/index'
+import Jex from "../../lib/jex/index";
+import {logo, wechat} from '../../icon/icon'
 
 const TITLE_MAP = {
     PWD: {
@@ -13,7 +15,9 @@ const TITLE_MAP = {
         title: '新用户注册',
         submitButtonText: '注册',
         quickTip: '已有账号，立即登录'
-    }
+    },
+    logo,
+    wechat
 }
 
 Page({
@@ -41,13 +45,12 @@ Page({
     },
 
     onLoad({pageType}) {
-        this.pageType = pageType
 
         const {title, submitButtonText, quickTip} = TITLE_MAP[pageType]
 
         Utils.setTitle(title)
 
-        this.setData({submitButtonText, quickTip})
+        this.setData({pageType, submitButtonText, quickTip})
     },
 
     /**
@@ -126,10 +129,15 @@ Page({
      * @private
      */
     _handlerRegister() {
+        const { tel, pwd } = this.data.user
+
         wx.showLoading({title: '正在注册...'})
 
-        register(this.data.user).then(data => {
-            console.log(data)
+        Jex.User().register({ username: tel, password: pwd }).then(() => {
+            wx.showToast({ title: '注册成功', duration: 1000 })
+            setTimeout(() => {
+                wx.navigateBack()
+            }, 800)
         })
     },
 

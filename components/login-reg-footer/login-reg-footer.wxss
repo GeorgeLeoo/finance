@@ -1,0 +1,33 @@
+.foot {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    bottom: 10%;
+    width: 100%;
+}
+
+.other {
+    font-size: 14px;
+    color: #ccc;
+}
+
+.other::after, .other::before {
+    content: '';
+    display: inline-block;
+    width: 20%;
+    height: 1px;
+    background-color: #ccc;
+    vertical-align: middle;
+    margin: 0 10px;
+}
+
+.other-btns {
+    text-align: center;
+    margin-top: 18%;
+}
+
+.other-btns image {
+    width: 50px;
+    height: 50px;
+    padding: 0 30px;
+}

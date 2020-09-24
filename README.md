@@ -14,14 +14,14 @@
         * pages：页面
         * components：组件
         * utils：工具类  
-            |-- index.js：工具类 
-            |-- index.js：图表插件
+            |-- config.js：工具类 
+            |-- config.js：图表插件
         * images：资源图片
         * index：配置文件
         * filter：过滤器
         * http：网络请求
             |-- http.js：对 wx.request 的封装
-            |-- index.js：对网络请求接口的封装    
+            |-- config.js：对网络请求接口的封装    
 
 ### 4. 请求封装
 一开始使用 wx.request 对数据进行网络请求，可写完后，发现太过冗余，也太麻烦，故对其做了封装。
