@@ -1,6 +1,7 @@
 // pages/bill/bill.js
 import Utils from '../../utils/index'
 import Config from '../../config/config'
+import Jex from '../../lib/jex/index'
 const api = require('./../../http/api.js');
 let {currentPath, isRefreshBills} = getApp().globalData;
 
@@ -30,11 +31,11 @@ Page({
         currentPath = './..' + route.substring(5, route.length);
     },
     onShow: function () {
-
-        if (getApp().globalData.isRefreshBills) {
-            this.loadData(this);
-            getApp().globalData.isRefreshBills = false;
-        }
+        this.getBills()
+        // if (getApp().globalData.isRefreshBills) {
+        //     this.loadData(this);
+        //     getApp().globalData.isRefreshBills = false;
+        // }
 
     },
     onPullDownRefresh: function () {
@@ -50,6 +51,13 @@ Page({
                 wx.stopPullDownRefresh();
             }
         });
+    },
+    getBills() {
+        const query = Jex.Query('bill')
+    
+        query.get().then(list => {
+            this.setData({ list })
+        })
     },
     refreshData() {
         console.log('refreshData');

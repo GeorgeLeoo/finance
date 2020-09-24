@@ -26,7 +26,7 @@
     <scroll-view scroll-y class='scroll-view'>
         <view class='main'>
             <block wx:if="{{list.length === 0}}">
-                <view>
+                <view class="empty">
                     <text>本月没有记录哦, 马上去消费</text>
                 </view>
             </block>
@@ -34,5 +34,5 @@
         </view>
     </scroll-view>
     <!--  添加账单按钮-->
-    <navigator class="addBtn" open-type="navigateTo" url="./../addition/addition?route=pages/bill/bill">+</navigator>
+    <navigator class="addBtn" open-type="navigateTo" url="./../addition/addition?route=pages/bill/bill"></navigator>
 </view>

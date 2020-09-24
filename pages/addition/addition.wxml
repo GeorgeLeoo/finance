@@ -1,78 +1,46 @@
 <!-- 记一笔 -->
 <view class='container'>
-  <view class='menu'>
-    <view class='top-menu'>
-      <text bindtap='outClick' class='top-menu-out {{current == 0 ? "bgw" : ""}}'>支出</text>
-      <icon class='line'></icon>
-      <text bindtap='inClick' class='top-menu-in {{current == 1 ? "bgw" : ""}}'>收入</text>
+    <view class='menu'>
+        <view class='top-menu'>
+            <text class='top-menu-out {{currentIndex === 0 ? "bgw" : ""}}' data-current_index="{{0}}" bindtap='handlerTabChange' >支出</text>
+            <icon class='line'></icon>
+            <text class='top-menu-in {{currentIndex === 1 ? "bgw" : ""}}' data-current_index="{{1}}" bindtap='handlerTabChange' >收入</text>
+        </view>
     </view>
-  </view>
 
-  <swiper class='swiper' current='{{current}}' bindchange='changeCurrent'>
-    <!-- 支出 -->
-    <swiper-item class='swiper-item'>
-      <view class='item-wrapper'>
-        <view class='item' wx:for="{{categories_out}}" wx:key="{{index}}">
-          <image class='{{data_out.iconSelected === index ? "red": "blue"}}' bindtap='iconClick' data-id='{{index}}' src='{{item.icon }}'></image>
-          <text>{{item.text}}</text>
-        </view>
-      </view>
-      <view class='bot'>
-        <view class='botinput line'>
-          <label class='date-label'>日期：</label>
-          <picker mode="date" fields="day" value="{{data_out.date}}" start="1996-09-01" end="3050-09-01" bindchange="bindDateChange">
-            <view>
-              <text class="picker-text">
-            {{data_out.date}}
-          </text>
+    <swiper class='swiper' current='{{currentIndex}}' bindchange='handlerChangeSwiper'>
+        <swiper-item wx:for="{{category_list}}" wx:for-item="category" wx:key="item.type" class='swiper-item'>
+            <view class='item-wrapper'>
+                <view class='item' wx:for="{{category.list}}" wx:key="item._id">
+                    <image class='{{iconSelectedId === item._id ? "red": "blue"}}' bindtap='handlerIconSelect' data-id='{{item._id}}'
+                           src='{{item.icon }}'></image>
+                    <text>{{item.text}}</text>
+                </view>
             </view>
-          </picker>
-        </view>
-        <view class='botinput line'>
-          <label>备注：</label>
-          <input placeholder='点我写备注' type='text' value='{{data_out.notes}}' bindinput='watchNotes'></input>
-        </view>
-        <view class='botinput line'>
-          <label>支出费用：</label>
-          <input placeholder='点我写支出费用' type='text' value='{{data_out.money}}' bindinput='watchMoney'></input>
-        </view>
-        <view>
-          <button class='save-btn' bindtap='handleSave'>保存</button>
-        </view>
-      </view>
-    </swiper-item>
-
-    <!-- 收入 -->
-    <swiper-item class='swiper-item'>
-      <view class='item-wrapper'>
-        <view class='item' wx:for="{{categories_in}}" wx:key="{{index}}">
-          <image class='{{data_in.iconSelected === index ? "red": "blue"}}' bindtap='iconClick' data-id='{{index}}' src='{{item.icon }}'></image>
-          <text>{{item.text}}</text>
-        </view>
-      </view>
-      <view class='bot'>
-        <view class='botinput line'>
-          <label class='date-label'>日期：</label>
-          <picker mode="date" fields="day" value="{{data_in.date}}" start="1996-09-01" end="3050-09-01" bindchange="bindDateChange">
-            <view>
-              <text class="picker-text">
-            {{data_in.date}}
-          </text>
+            <view class='bot'>
+                <view class='botinput line'>
+                    <label class='date-label'>日期</label>
+                    <picker mode="date" fields="day" value="{{date}}" start="2020-09-01" end="3050-09-01"
+                            bindchange="handlerDateChange">
+                        <view>
+                            <text class="picker-text">
+                                {{date}}
+                            </text>
+                        </view>
+                    </picker>
+                </view>
+                <view class='botinput line'>
+                    <label>支出费用</label>
+                    <input placeholder='点我写支出费用' type='text' value='{{money}}' data-type="{{INPUT_TYPE_MAP.MONEY}}" bindinput='handlerWatchInput'></input>
+                </view>
+                <view class='botinput line'>
+                    <label>备注</label>
+                    <input placeholder='点我写备注' type='text' value='{{note}}' data-type="{{INPUT_TYPE_MAP.NOTE}}" bindinput='handlerWatchInput'></input>
+                </view>
+                <view>
+                    <button class='save-btn' bindtap='handlerSave'>保存</button>
+                </view>
             </view>
-          </picker>
-        </view>
-        <view class='botinput line'>
-          <label>备注：</label>
-          <input placeholder='点我写备注' type='text' value='{{data_in.notes}}' bindinput='watchNotes'></input>
-        </view>
-        <view class='botinput line'>
-          <label>收入费用：</label>
-          <input placeholder='点我写支出费用' type='text' value='{{data_in.money}}' bindinput='watchMoney'></input>
-        </view>
-        <view>
-          <button class='save-btn' bindtap='handleSave'>保存</button>
-        </view>
-      </view>
-    </swiper-item>
-  </swiper>
+        </swiper-item>
+    </swiper>
 </view>

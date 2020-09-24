@@ -1,6 +1,8 @@
 {
     "pages": [
 
+        "pages/bill/bill",
+        "pages/addition/addition",
         "pages/login/login",
         "pages/register/register",
         "pages/search/search",
@@ -8,8 +10,6 @@
         "pages/circle/circle",
         "pages/forget/forget",
         "pages/profile/profile",
-        "pages/bill/bill",
-        "pages/addition/addition",
         "pages/chart/chart",
         "pages/catelogsetting/catelogsetting",
         "pages/addcatalog/addcatalog",
